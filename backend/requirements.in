@@ -1,0 +1,12 @@
+# Direct dependencies. requirements.lock pins the resolved transitive set.
+# requirements-win.lock additionally verifies Python 3.14 / Windows wheel hashes.
+fastapi==0.142.2
+pydantic==2.13.5
+SQLAlchemy[asyncio]==2.1.3
+alembic==1.20.0
+psycopg[binary]==3.3.6
+uvicorn==0.54.0
+pydantic-settings==2.15.0
+httpx==0.28.1
+pytest==9.1.1
+pytest-asyncio==1.4.0
