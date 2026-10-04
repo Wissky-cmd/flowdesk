@@ -1,0 +1,49 @@
+{
+  "url": "/w/f441fe89-3299-51c1-ab7b-1a23105e255f/members",
+  "engine": {
+    "name": "axe-core",
+    "version": "4.13.0"
+  },
+  "violations": [],
+  "incomplete": [
+    {
+      "id": "aria-valid-attr-value",
+      "impact": "critical",
+      "help": "ARIA attributes must conform to valid values",
+      "targets": [
+        [
+          "#member-role"
+        ]
+      ]
+    },
+    {
+      "id": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "targets": [
+        [
+          "a[aria-label=\"FlowDesk 首页\"] > .brand-mark"
+        ],
+        [
+          ".avatar"
+        ],
+        [
+          ".member-entry:nth-child(2) > .member-person > .member-avatar"
+        ],
+        [
+          ".member-entry:nth-child(3) > .member-person > .member-avatar"
+        ],
+        [
+          ".self-label"
+        ],
+        [
+          ".member-entry:nth-child(4) > .member-person > .member-avatar"
+        ],
+        [
+          ".member-entry:nth-child(5) > .member-person > .member-avatar"
+        ]
+      ]
+    }
+  ],
+  "passedRules": 38
+}

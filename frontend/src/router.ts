@@ -13,6 +13,11 @@ export const router = createRouter({ history: createWebHistory(), scrollBehavior
   { path: '/w/:wid/members', component: () => import('./views/Members.vue') },
   { path: '/:pathMatch(.*)*', redirect: '/' },
 ] })
+router.afterEach(to => {
+  const section = to.path.split('/').at(-1) || 'home'
+  const titles: Record<string, string> = {home:'工作空间',login:'登录',tickets:'工单中心',board:'协作看板',jobs:'任务中心',integrations:'集成授权',members:'成员设置',new:'创建工单'}
+  document.title = `${titles[section] || '工单详情'} · FlowDesk`
+})
 router.beforeEach(async to => {
   const auth = useAuth()
   if (to.path === '/login') return

@@ -25,5 +25,5 @@ async function submit() {
     <label for="body">详细描述 <span>*</span></label><el-input id="body" v-model="form.body" type="textarea" :rows="8" placeholder="背景是什么？希望达成什么结果？请补充必要的信息。" maxlength="20000" required />
     <div class="form-row"><div><label for="priority">优先级</label><el-select id="priority" v-model="form.priority" aria-label="优先级"><el-option v-for="(label, key) in priorities" :key="key" :label="label" :value="key" /></el-select></div><div v-if="canAssign"><label for="assignee">负责人</label><el-select id="assignee" v-model="form.assignee_id" clearable placeholder="暂不分派" aria-label="负责人" @clear="form.assignee_id = null"><el-option v-for="a in assignees" :key="a.id" :label="a.name" :value="a.id" /></el-select></div></div>
     <div class="form-actions"><el-button @click="router.push(`/w/${wid}/tickets`)">取消</el-button><el-button type="primary" native-type="submit" :loading="busy">提交工单 →</el-button></div></form></section>
-    <aside class="help-card"><div class="eyebrow">A GOOD REQUEST</div><h3>好的描述，让沟通少绕路。</h3><p>01 / 说明问题发生的场景</p><p>02 / 写下你期待的结果</p><p>03 / 根据影响范围设置优先级</p><hr/><p>提交后，你可以在工单中心查看详情。</p></aside></div>
+    <aside class="help-card"><div class="eyebrow">A GOOD REQUEST</div><h2>好的描述，让沟通少绕路。</h2><p>01 / 说明问题发生的场景</p><p>02 / 写下你期待的结果</p><p>03 / 根据影响范围设置优先级</p><hr/><p>提交后，你可以在工单中心查看详情。</p></aside></div>
 </template>

@@ -135,7 +135,10 @@ async def list_tickets(
         conditions.append(Ticket.created_at < created_to)
     # Window count keeps the page and count in the same PostgreSQL statement snapshot.
     order = (Ticket.updated_at.desc(), Ticket.id.desc()) if sort == 'newest' else (Ticket.updated_at, Ticket.id)
-    rows = (await db.execute(select(Ticket, func.count().over()).where(*conditions).order_by(*order).offset((page - 1) * page_size).limit(page_size))).all()
+    # Count/page narrow rows first; fetch bodies only for the selected page, in one snapshot.
+    selected = (select(Ticket.id, func.count().over().label('total')).where(*conditions).order_by(*order)
+                .offset((page - 1) * page_size).limit(page_size).subquery())
+    rows = (await db.execute(select(Ticket, selected.c.total).join(selected, Ticket.id == selected.c.id).order_by(*order))).all()
     total = rows[0][1] if rows else await db.scalar(select(func.count()).select_from(Ticket).where(*conditions))
     return {'items': [TicketOutput.model_validate(t) for t, _ in rows], 'total': total, 'page': page, 'page_size': page_size}
 
@@ -239,7 +242,8 @@ async def activity(wid: UUID, ticket_id: UUID, db: DB, user: CurrentUser, page: 
     rows = (await db.execute(select(TicketEvent, User.name, func.count().over()).join(User, User.id == TicketEvent.actor_id)
                             .where(TicketEvent.workspace_id == wid, TicketEvent.ticket_id == ticket_id)
                             .order_by(TicketEvent.created_at.desc(), TicketEvent.id.desc()).offset((page - 1) * 30).limit(30))).all()
-    return {'items': [{'id': e.id, 'kind': e.kind, 'detail': e.detail, 'actor': name, 'created_at': e.created_at} for e, name, _ in rows], 'total': rows[0][2] if rows else 0}
+    total = rows[0][2] if rows else await db.scalar(select(func.count()).select_from(TicketEvent).where(TicketEvent.workspace_id == wid, TicketEvent.ticket_id == ticket_id))
+    return {'items': [{'id': e.id, 'kind': e.kind, 'detail': e.detail, 'actor': name, 'created_at': e.created_at} for e, name, _ in rows], 'total': total}
 
 
 @router.post('/{ticket_id}/comments', status_code=201)

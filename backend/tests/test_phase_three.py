@@ -1,10 +1,12 @@
 from concurrent.futures import ThreadPoolExecutor
 from datetime import timedelta
-from threading import Event
+from pathlib import Path
+from threading import Barrier, Event
 from uuid import UUID
 
 import pytest
 from sqlalchemy import select
+from sqlalchemy.exc import OperationalError
 
 from app import job_runtime as runtime
 from app.config import settings
@@ -208,6 +210,111 @@ def test_expiry_and_quota(login):
     for _ in range(5):
         create(client)
     assert client.post(BASE + '/exports').status_code == 429
+
+
+def test_retry_quota_serializes_concurrent_requests(login):
+    client = login()
+    failed = [create(client), create(client)]
+    with runtime.Sessions.begin() as db:
+        for job_id in failed:
+            runtime.fail(db, db.get(Job, UUID(job_id)), 'EXPORT_ERROR')
+    for _ in range(4):
+        create(client)
+    barrier = Barrier(2)
+    def retry(job_id):
+        barrier.wait(timeout=8)
+        return client.post(BASE + '/jobs/' + job_id + '/retry', json={'reason': '故障已恢复'})
+    with ThreadPoolExecutor(2) as pool:
+        responses = list(pool.map(retry, failed))
+    assert sorted(r.status_code for r in responses) == [200, 429]
+    rejected = failed[next(i for i, r in enumerate(responses) if r.status_code == 429)]
+    assert detail(client, rejected)['generation'] == 1
+    assert client.post(BASE + '/exports').status_code == 429
+
+
+@pytest.mark.parametrize('status', ['queued', 'succeeded'])
+def test_expiry_without_scanner_allows_recovery_and_releases_quota(login, status):
+    client = login()
+    job_id = create(client)
+    if status == 'succeeded':
+        runtime.execute_job(job_id)
+    with runtime.Sessions.begin() as db:
+        db.get(Job, UUID(job_id)).expires_at = runtime.now() - timedelta(seconds=1)
+    assert detail(client, job_id)['status'] == 'expired'
+    assert client.get(BASE + '/jobs').json()['items'][0]['status'] == 'expired'
+    assert client.get(BASE + '/jobs/' + job_id + '/download').status_code == 410
+    for _ in range(5):
+        create(client)
+    assert client.post(BASE + '/jobs/' + job_id + '/retry', json={'reason': '重新生成'}).status_code == 429
+    with runtime.Sessions.begin() as db:
+        queued = db.scalar(select(Job).where(Job.id != UUID(job_id), Job.status == 'queued').limit(1))
+        runtime.fail(db, queued, 'EXPORT_ERROR')
+    assert client.post(BASE + '/jobs/' + job_id + '/retry', json={'reason': '重新生成'}).status_code == 200
+    assert detail(client, job_id)['generation'] == 2
+
+
+def test_empty_pages_keep_scoped_total(login):
+    client = login('alice')
+    create(client)
+    assert client.get(BASE + '/jobs?page=99').json() == {'items': [], 'total': 1}
+    assert client.post(BASE + '/tickets/' + TICKET + '/comments', json={'body': '分页记录'}).status_code == 201
+    first = client.get(BASE + '/tickets/' + TICKET + '/activity').json()
+    assert first['total'] > 0
+    assert client.get(BASE + '/tickets/' + TICKET + '/activity?page=99').json() == {'items': [], 'total': first['total']}
+    login('bob')
+    assert client.get(BASE + '/jobs?page=99').json() == {'items': [], 'total': 0}
+    assert client.get(BASE + '/tickets/' + TICKET + '/activity?page=99').status_code == 404
+
+
+def test_cleanup_holds_publication_lock_until_file_removed(login, monkeypatch):
+    import os
+    client = login()
+    job_id = create(client)
+    runtime.execute_job(job_id)
+    path = settings.export_dir / f'{job_id}.csv'
+    old = runtime.now().timestamp() - runtime.LEASE_SECONDS * 3
+    os.utime(path, (old, old))
+    with runtime.Sessions.begin() as db:
+        db.get(Job, UUID(job_id)).expires_at = runtime.now() - timedelta(seconds=1)
+    deleting, resume = Event(), Event()
+    real_unlink = Path.unlink
+    def paused_unlink(self, *args, **kwargs):
+        if self == path:
+            deleting.set()
+            assert resume.wait(8)
+        return real_unlink(self, *args, **kwargs)
+    monkeypatch.setattr(Path, 'unlink', paused_unlink)
+    with ThreadPoolExecutor(1) as pool:
+        cleanup = pool.submit(runtime.reconcile)
+        try:
+            assert deleting.wait(8)
+            # A separate real PostgreSQL connection cannot retry/publish during deletion.
+            with pytest.raises(OperationalError) as locked:
+                with runtime.Sessions.begin() as db:
+                    db.scalar(select(Job).where(Job.id == UUID(job_id)).with_for_update(nowait=True))
+            assert locked.value.orig.sqlstate == '55P03'
+        finally:
+            resume.set()
+        cleanup.result(timeout=8)
+    assert not path.exists()
+    assert client.post(BASE + '/jobs/' + job_id + '/retry', json={'reason': '更新导出'}).status_code == 200
+    runtime.execute_job(job_id)
+    runtime.reconcile()
+    assert client.get(BASE + '/jobs/' + job_id + '/download').status_code == 200
+
+
+def test_export_expiring_during_build_is_not_published(login, monkeypatch):
+    client = login()
+    job_id = create(client)
+    real_build = runtime.build_export
+    def expire(job, path):
+        real_build(job, path)
+        with runtime.Sessions.begin() as db:
+            db.get(Job, job.id).expires_at = runtime.now() - timedelta(seconds=1)
+    monkeypatch.setattr(runtime, 'build_export', expire)
+    runtime.execute_job(job_id)
+    assert detail(client, job_id)['status'] == 'expired'
+    assert not list(settings.export_dir.iterdir())
 
 
 def test_integration_scopes_hash_revoke_and_role_intersection(login, client, sql):

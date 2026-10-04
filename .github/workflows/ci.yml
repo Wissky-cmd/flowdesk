@@ -5,7 +5,7 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 35
     services:
       postgres:
         image: postgres:18.6-bookworm
@@ -30,6 +30,9 @@ jobs:
       COOKIE_SECURE: 'false'
       SEED_PASSWORD: ci-only-disposable-seed-password
       PYTHONPATH: backend
+      CROSS_BROWSER: '1'
+      PLAYWRIGHT_REPORT: ../docs/evidence/ci-cross-browser.json
+      PERF_DATABASE_URL: postgresql+psycopg://flowdesk:ci-disposable-password@127.0.0.1:5432/flowdesk_perf_test
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -43,12 +46,16 @@ jobs:
       - run: python scripts/check_database.py
       - run: python -m pytest backend/tests -q -p no:cacheprovider --junitxml=docs/evidence/ci-pytest.xml
       - run: python scripts/queue_smoke.py
+      - name: Large dataset acceptance
+        run: |
+          python -c "import os,psycopg; c=psycopg.connect(os.environ['DATABASE_URL'].replace('postgresql+psycopg','postgresql'),autocommit=True); c.execute('CREATE DATABASE flowdesk_perf_test')"
+          python scripts/performance_acceptance.py
       - run: npm install --global pnpm@11.25.0
       - run: pnpm install --frozen-lockfile
         working-directory: frontend
       - run: pnpm exec vue-tsc --noEmit && pnpm build
         working-directory: frontend
-      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm exec playwright install --with-deps chromium firefox webkit
         working-directory: frontend
       - name: Start development services for browser acceptance
         run: |
@@ -60,17 +67,19 @@ jobs:
           for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5173 >/dev/null && curl -fsS http://127.0.0.1:8000/api/v1/health && break; sleep 1; done
       - run: pnpm exec playwright test
         working-directory: frontend
-      - name: Validate and build deployment
-        env: {POSTGRES_PASSWORD: ci-compose-only-password, POSTGRES_ADMIN_PASSWORD: ci-compose-admin-password}
-        run: docker compose config --quiet && docker compose build
+      - name: Boot disposable production stack and verify recovery
+        run: python scripts/compose_acceptance.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: verification-evidence
           path: |
             docs/evidence/ci-pytest.xml
-            docs/evidence/playwright.json
+            docs/evidence/ci-cross-browser.json
+            docs/evidence/performance.json
+            docs/evidence/compose-acceptance.json
+            docs/evidence/queue-smoke.json
+            docs/evidence/accessibility
             docs/evidence/phase-two
             docs/evidence/phase-three
-            frontend/test-results
-            .local/queue-smoke.log
+            docs/evidence/review

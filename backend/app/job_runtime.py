@@ -73,8 +73,9 @@ def reconcile():
                 job_id = uuid.UUID(path.name.split('.')[0])
                 if path.suffix not in ('.csv', '.tmp'):
                     continue
-                with Sessions() as db:
-                    job = db.get(Job, job_id)
+                with Sessions.begin() as db:
+                    # Serialize deletion with retry and publication of the same UUID file.
+                    job = db.scalar(select(Job).where(Job.id == job_id).with_for_update())
                     old = now().timestamp() - path.stat().st_mtime > LEASE_SECONDS * 2
                     if old and (path.suffix == '.tmp' or not job or job.status == 'expired'):
                         path.unlink(missing_ok=True)
@@ -143,7 +144,9 @@ def build_export(job, path):
         conditions = [Ticket.workspace_id == job.workspace_id]
         if job.owner_role == 'requester':
             conditions.append(Ticket.creator_id == job.owner_id)
-        rows = db.scalars(select(Ticket).where(*conditions).order_by(Ticket.created_at, Ticket.id).limit(10001)).all()
+        rows = db.execute(select(Ticket.id, Ticket.title, Ticket.status, Ticket.priority, Ticket.creator_id,
+                                 Ticket.assignee_id, Ticket.created_at)
+                          .where(*conditions).order_by(Ticket.created_at, Ticket.id).limit(10001)).all()
         if len(rows) > 10000:
             raise ExportRejected('EXPORT_ROW_LIMIT')
         with path.open('w', encoding='utf-8-sig', newline='') as stream:
@@ -179,7 +182,7 @@ def execute_job(job_id):
         build_export(job, temporary)
         with Sessions.begin() as db:
             current = db.scalar(select(Job).where(Job.id == job_id).with_for_update())
-            if current.status != 'running' or current.claim_token != claim or current.lease_until <= now():
+            if current.status != 'running' or current.claim_token != claim or current.lease_until <= now() or current.expires_at <= now():
                 return
             if not permitted(db, current):
                 fail(db, current, 'PERMISSION_REVOKED')

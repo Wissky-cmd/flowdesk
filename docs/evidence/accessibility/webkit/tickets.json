@@ -1,0 +1,40 @@
+{
+  "url": "/w/f441fe89-3299-51c1-ab7b-1a23105e255f/tickets",
+  "engine": {
+    "name": "axe-core",
+    "version": "4.13.0"
+  },
+  "violations": [],
+  "incomplete": [
+    {
+      "id": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "targets": [
+        [
+          ".view-switch"
+        ]
+      ]
+    },
+    {
+      "id": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "targets": [
+        [
+          "a[aria-label=\"FlowDesk 首页\"] > .brand-mark"
+        ],
+        [
+          ".avatar"
+        ],
+        [
+          ".art-coordinate"
+        ],
+        [
+          ".hero-label"
+        ]
+      ]
+    }
+  ],
+  "passedRules": 40
+}

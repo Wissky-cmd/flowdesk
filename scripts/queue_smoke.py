@@ -1,5 +1,6 @@
 """Real Redis + Linux Celery smoke, against an isolated test database only."""
 import os
+import json
 import subprocess
 import sys
 import time
@@ -51,6 +52,11 @@ with (root / '.local/queue-smoke.log').open('w') as log:
             result = db.get(Job, job_id)
             assert result.status == 'succeeded' and result.attempts == 1
         assert len(list(Path(os.environ['EXPORT_DIR']).glob(f'{job_id}.csv'))) == 1
+        evidence = root / 'docs/evidence/queue-smoke.json'
+        evidence.parent.mkdir(parents=True, exist_ok=True)
+        evidence.write_text(json.dumps({'platform': sys.platform, 'passed': True, 'transport': 'redis',
+                                       'worker': 'celery prefork', 'checks': ['absent_worker_recovery', 'duplicate_delivery', 'single_artifact'],
+                                       'execution_attempts': result.attempts}, indent=2), encoding='utf-8')
         print('PASS: Redis delivery, absent worker recovery, Linux Celery execution, duplicate delivery, one artifact')
     finally:
         worker.terminate()

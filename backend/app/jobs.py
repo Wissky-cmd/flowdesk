@@ -15,7 +15,27 @@ router = APIRouter(prefix='/workspaces/{wid}')
 
 
 def output(job):
-    return {key: getattr(job, key) for key in ('id', 'status', 'generation', 'attempts', 'run_attempts', 'error_code', 'expires_at', 'created_at')}
+    result = {key: getattr(job, key) for key in ('id', 'status', 'generation', 'attempts', 'run_attempts', 'error_code', 'expires_at', 'created_at')}
+    if job.expires_at <= datetime.now(timezone.utc):
+        result['status'] = 'expired'
+    return result
+
+
+async def lock_export_owner(db, wid, user):
+    # Creation and retry share this lock before taking any job lock.
+    member = await db.scalar(select(Membership).where(Membership.workspace_id == wid, Membership.user_id == user.id)
+                             .with_for_update().execution_options(populate_existing=True))
+    if not member or not member.is_active:
+        raise HTTPException(404, '工作空间或资源不存在')
+    return member
+
+
+async def check_pending_quota(db, wid, user):
+    count = await db.scalar(select(func.count()).select_from(Job).where(
+        Job.workspace_id == wid, Job.owner_id == user.id, Job.status.in_(['queued', 'running']),
+        Job.expires_at > datetime.now(timezone.utc)))
+    if count >= 5:
+        raise HTTPException(429, '最多同时保留 5 个待处理导出任务')
 
 
 async def accessible_job(db, wid, job_id, user, lock=False):
@@ -29,12 +49,8 @@ async def accessible_job(db, wid, job_id, user, lock=False):
 
 @router.post('/exports', status_code=202)
 async def create_export(wid: UUID, db: DB, user: CurrentUser):
-    member = await require_member(db, wid, user.id)
-    # Per-owner lock makes the pending quota safe against parallel submissions.
-    await db.scalar(select(Membership).where(Membership.workspace_id == wid, Membership.user_id == user.id).with_for_update())
-    count = await db.scalar(select(func.count()).select_from(Job).where(Job.workspace_id == wid, Job.owner_id == user.id, Job.status.in_(['queued', 'running'])))
-    if count >= 5:
-        raise HTTPException(429, '最多同时保留 5 个待处理导出任务')
+    member = await lock_export_owner(db, wid, user)
+    await check_pending_quota(db, wid, user)
     job = Job(workspace_id=wid, owner_id=user.id, owner_role=member.role, expires_at=datetime.now(timezone.utc) + timedelta(hours=24))
     db.add(job)
     await db.flush()
@@ -48,7 +64,8 @@ async def create_export(wid: UUID, db: DB, user: CurrentUser):
 async def list_jobs(wid: UUID, db: DB, user: CurrentUser, page: int = Query(1, ge=1)):
     await require_member(db, wid, user.id)
     rows = (await db.execute(select(Job, func.count().over()).where(Job.workspace_id == wid, Job.owner_id == user.id).order_by(Job.created_at.desc(), Job.id.desc()).offset((page - 1) * 20).limit(20))).all()
-    return {'items': [output(job) for job, _ in rows], 'total': rows[0][1] if rows else 0}
+    total = rows[0][1] if rows else await db.scalar(select(func.count()).select_from(Job).where(Job.workspace_id == wid, Job.owner_id == user.id))
+    return {'items': [output(job) for job, _ in rows], 'total': total}
 
 
 @router.get('/jobs/{job_id}')
@@ -67,9 +84,11 @@ class RetryInput(BaseModel):
 
 @router.post('/jobs/{job_id}/retry')
 async def retry_job(wid: UUID, job_id: UUID, data: RetryInput, db: DB, user: CurrentUser):
+    await lock_export_owner(db, wid, user)
     job, member = await accessible_job(db, wid, job_id, user, lock=True)
-    if job.status not in ('failed', 'expired'):
+    if job.status not in ('failed', 'expired') and job.expires_at > datetime.now(timezone.utc):
         raise HTTPException(409, '仅失败或过期的任务可以人工重试')
+    await check_pending_quota(db, wid, user)
     job.generation += 1
     job.run_attempts = 0
     job.status, job.error_code, job.result_key = 'queued', None, None

@@ -66,3 +66,54 @@ test('token shown once, scope limited, revoked; mobile settings layout', async (
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy()
   await page.screenshot({path:`${evidence}/integrations-mobile.png`,fullPage:true})
 })
+
+// These two tests isolate browser response ordering and error presentation.
+// PostgreSQL quota and expiry behavior are covered in test_phase_three.py.
+const mockJob = (id: string, status = 'queued') => ({id, status, generation:1, attempts:0, run_attempts:0,
+  error_code:null, created_at:'2026-10-05T00:00:00Z', expires_at:'2099-10-06T00:00:00Z'})
+
+test('late refresh cannot overwrite the newly selected jobs page', async ({page}) => {
+  await login(page)
+  let firstPageCalls = 0
+  let release!: () => void, started!: () => void
+  const delayed = new Promise<void>(resolve => { release = resolve })
+  const intercepted = new Promise<void>(resolve => { started = resolve })
+  await page.route('**/api/v1/workspaces/*/jobs?*', async route => {
+    const secondPage = new URL(route.request().url()).searchParams.get('page') === '2'
+    if (!secondPage && ++firstPageCalls === 2) { started(); await delayed }
+    await route.fulfill({json:{items:[mockJob(secondPage ? 'bbbbbbbb-page-two' : 'aaaaaaaa-page-one')], total:40}})
+  })
+  await page.goto(`/w/${wid}/jobs`)
+  await expect(page.locator('.job-card')).toContainText('AAAAAAAA')
+  await page.getByRole('button',{name:'刷新任务'}).click()
+  await intercepted
+  try {
+    await page.locator('.el-pagination .btn-next').click()
+    await expect(page.locator('.job-card')).toContainText('BBBBBBBB')
+  } finally { release() }
+  // A subsequent refresh stays on page 2, including after the older response settles.
+  await page.getByRole('button',{name:'刷新任务'}).click()
+  await expect(page.locator('.job-card')).toContainText('BBBBBBBB')
+  await expect(page.locator('.el-pager .is-active')).toHaveText('2')
+})
+
+test('retry rejection is visible inside the dialog and preserves the reason', async ({page}) => {
+  await login(page)
+  await page.route('**/api/v1/workspaces/*/jobs?*', route => route.fulfill({json:{items:[mockJob('aaaaaaaa-failed','failed')], total:1}}))
+  await page.route('**/jobs/*/retry', route => route.fulfill({status:429, json:{message:'最多同时保留 5 个待处理导出任务'}}))
+  await page.goto(`/w/${wid}/jobs`)
+  await page.setViewportSize({width:320,height:844})
+  await page.getByRole('button',{name:'人工重试'}).click()
+  await page.getByLabel('重试原因').fill('队列恢复后重新生成')
+  await page.getByRole('button',{name:'确认重试'}).click()
+  const dialog = page.getByRole('dialog')
+  await expect(dialog.getByRole('alert')).toContainText('最多同时保留 5 个待处理导出任务')
+  await expect(dialog.getByLabel('重试原因')).toHaveValue('队列恢复后重新生成')
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy()
+  mkdirSync('../docs/evidence/review',{recursive:true})
+  await page.screenshot({path:'../docs/evidence/review/retry-error-mobile.png',fullPage:true})
+  await dialog.getByRole('button',{name:'取消',exact:true}).click()
+  await page.getByRole('button',{name:'人工重试'}).click()
+  await expect(page.getByRole('dialog').getByRole('alert')).toHaveCount(0)
+  await expect(page.getByLabel('重试原因')).toHaveValue('')
+})
