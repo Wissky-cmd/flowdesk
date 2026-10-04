@@ -3,11 +3,11 @@ export class ApiError extends Error {
 }
 export let csrf = ''
 export const setCsrf = (value: string) => { csrf = value }
-export async function api<T>(path: string, method = 'GET', body?: unknown): Promise<T> {
+export async function api<T>(path: string, method = 'GET', body?: unknown, headers: Record<string, string> = {}): Promise<T> {
   const response = await fetch('/api/v1' + path, {
     method, credentials: 'same-origin',
-    headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrf },
-    body: body === undefined ? undefined : JSON.stringify(body),
+    headers: { 'Content-Type': body instanceof File ? 'application/octet-stream' : 'application/json', 'X-CSRF-Token': csrf, ...headers },
+    body: body instanceof File ? body : body === undefined ? undefined : JSON.stringify(body),
   })
   if (!response.ok) {
     const data = await response.json().catch(() => ({}))

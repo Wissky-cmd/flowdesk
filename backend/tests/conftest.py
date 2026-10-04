@@ -22,6 +22,7 @@ if url == (os.environ.get('DATABASE_URL') or values.get('DATABASE_URL')):
     raise RuntimeError('Never run destructive test fixtures against the development database')
 os.environ['DATABASE_URL'] = url
 os.environ['COOKIE_SECURE'] = 'false'
+os.environ['RATE_LIMIT_ENABLED'] = 'false'
 PASSWORD = secrets.token_urlsafe(20)
 os.environ['SEED_PASSWORD'] = PASSWORD
 

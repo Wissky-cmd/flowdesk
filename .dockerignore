@@ -1,0 +1,12 @@
+.git
+.local
+.venv
+.env
+.codegraph
+.pnpm-store
+**/__pycache__
+**/.pytest_cache
+frontend/node_modules
+frontend/dist
+frontend/test-results
+docs/evidence

@@ -45,7 +45,10 @@ async function logout() { try { await auth.logout(); await router.push('/login')
       <nav aria-label="主导航"><RouterLink class="nav-link" to="/"><Icon name="grid" /><span>工作空间</span><span class="nav-number">01</span></RouterLink>
       <template v-if="workspace">
         <RouterLink :class="['nav-link', { 'section-active': route.path.includes('/tickets') }]" :to="`/w/${workspace.id}/tickets`"><Icon name="ticket" /><span>工单中心</span><span class="nav-number">02</span></RouterLink>
-        <RouterLink v-if="workspace.role === 'admin'" class="nav-link" :to="`/w/${workspace.id}/members`"><Icon name="people" /><span>成员设置</span><span class="nav-number">03</span></RouterLink>
+        <RouterLink class="nav-link" :to="`/w/${workspace.id}/board`"><Icon name="grid" /><span>协作看板</span><span class="nav-number">03</span></RouterLink>
+        <RouterLink class="nav-link" :to="`/w/${workspace.id}/jobs`"><Icon name="clock" /><span>任务中心</span><span class="nav-number">04</span></RouterLink>
+        <RouterLink class="nav-link" :to="`/w/${workspace.id}/integrations`"><Icon name="shield" /><span>集成授权</span><span class="nav-number">05</span></RouterLink>
+        <RouterLink v-if="workspace.role === 'admin'" class="nav-link" :to="`/w/${workspace.id}/members`"><Icon name="people" /><span>成员设置</span><span class="nav-number">06</span></RouterLink>
       </template>
       </nav>
       <div v-if="workspace" class="workspace-note"><span class="workspace-note-label">当前空间</span><span class="workspace-mini-icon">{{ workspace.name.slice(0, 1) }}</span><strong>{{ workspace.name }}</strong><span>{{ roles[workspace.role] }}权限</span><RouterLink to="/" aria-label="切换工作空间"><Icon name="diagonal" :size="17" /></RouterLink></div>
@@ -55,7 +58,7 @@ async function logout() { try { await auth.logout(); await router.push('/login')
       <header class="topbar"><div class="breadcrumb"><span class="breadcrumb-dot"></span>{{ workspace?.name || '我的工作空间' }}<span class="slash">/</span><span class="breadcrumb-secondary">团队协作</span></div><div class="topbar-right"><span class="today">{{ today }}</span><div class="account"><span class="avatar">{{ auth.me?.name.slice(0, 1) }}</span><span class="account-name">{{ auth.me?.name }}<small>{{ workspace ? roles[workspace.role] : '团队成员' }}</small></span><button class="icon-button logout-button" aria-label="退出" title="退出登录" @click="logout"><Icon name="logout" :size="17" /></button></div></div></header>
       <main id="main-content" tabindex="-1"><el-alert v-if="error" :title="error" type="error" show-icon /><RouterView v-slot="{ Component }"><Transition name="page" mode="out-in"><div :key="route.fullPath" class="page-content"><component :is="Component" /></div></Transition></RouterView><footer class="page-footer"><span>少一点繁杂，多一点流畅。</span><span>DESIGNED FOR THE WAY YOU WORK <span class="footer-star">✳</span></span></footer></main>
     </div>
-    <el-dialog v-model="helpOpen" title="从一个请求，开始协作" width="min(520px, calc(100vw - 32px))" class="guide-dialog"><ol class="guide-steps"><li><strong>选择你的空间</strong><p>每个空间独立管理成员与工单，只显示你有权访问的内容。</p></li><li><strong>清晰描述一个请求</strong><p>填写标题与背景，按影响范围选择优先级，再提交给团队。</p></li><li><strong>随时回到工单中心</strong><p>查看详情、搜索当前页；管理员可以在成员设置中调整协作权限。</p></li></ol><template #footer><el-button type="primary" @click="helpOpen = false">开始协作 <Icon name="arrow" :size="16" /></el-button></template></el-dialog>
+    <el-dialog v-model="helpOpen" title="从一个请求，开始协作" width="min(520px, calc(100vw - 32px))" class="guide-dialog"><ol class="guide-steps"><li><strong>选择你的空间</strong><p>每个空间独立管理成员与工单，只显示你有权访问的内容。</p></li><li><strong>清晰描述一个请求</strong><p>填写标题与背景，按影响范围选择优先级，再提交给团队。</p></li><li><strong>随时回到工单中心</strong><p>筛选全部可见工单、推进处理、补充评论与附件；在任务中心导出结果，在集成授权中管理应用访问。</p></li></ol><template #footer><el-button type="primary" @click="helpOpen = false">开始协作 <Icon name="arrow" :size="16" /></el-button></template></el-dialog>
   </div>
   </el-config-provider>
 </template>

@@ -1,5 +1,54 @@
 # FlowDesk 验收记录（当前结果）
 
+## 后续阶段交付（2026-10-05；优先于下方历史）
+
+用户授权连续推进全部阶段。F01/F02 业务闭环与本机验收完成；F03 可靠任务和 F04 部署交付代码完成，但 **真实 Redis、Linux Celery、Compose/Nginx 实际运行与远程 CI 仍未验收**。本机没有 Docker，WSL 未安装，仓库没有远程。
+
+| 编号 | 实现与结果 | 证据 |
+| --- | --- | --- |
+| F01 | 工单创建至验收关闭、全量搜索/筛选/稳定分页、编辑分派、评论附件、历史、状态/优先级/负责人看板、任务中心、集成授权 | `evidence/playwright.json`、`evidence/phase-two`、`evidence/phase-three` |
+| F02 | 12 张业务表、组合外键；审计同事务、乐观锁、幂等；独立 PostgreSQL 连接并发恰好一胜一冲突；五类审计失败回滚；完整迁移往返通过 | `evidence/pytest-all.xml`、`evidence/migration-roundtrip-all.txt` |
+| F03 | jobs/outbox 同事务、有限投递/执行预算、持久化退避、租约与旧 Worker 防覆盖、权限复验、CSV 安全、过期与人工恢复；真实 PostgreSQL + 故障注入通过 | `test_phase_three.py`；真实传输脚本 `scripts/queue_smoke.py` **未运行** |
+| F04 | Windows/Linux 平台哈希锁、Compose、Nginx、GitHub Actions、请求日志；Windows 类型/构建/测试通过；独立恢复库登录与附件/CSV 下载通过 | `evidence/backup-restore.json`、`requirements-*.lock`；远程 CI **未运行** |
+
+后端全量：**63 passed、1 skipped**，1 条 Starlette HTTPX 弃用警告。跳过项为真实 Redis 专用测试（无 TEST_REDIS_URL），没有用 mock 冒充 Redis 成功。任务函数与数据库恢复测试不等于 Linux Celery 验收。
+
+浏览器全量：**6 passed**；新增页面视觉修正后再跑 2 项操作页回归通过，报告 `evidence/playwright-operations.json`。覆盖跨空间读取、创建到关闭、评论、附件下载、全量筛选、看板、409 草稿保留、CSV 内容、一次性令牌与撤销。工单/详情/看板在 1440/1024/768/390/320px 无横向溢出，任务中心390px、集成页320px另检。截图不保存令牌明文。
+
+备份恢复：创建独立 `flowdesk_restore_时间_test`，备份 PostgreSQL 一致快照与私有 CSV，核对所有业务表计数、迁移版本、附件与 CSV SHA256；恢复库真实登录、工单读取、附件和 CSV 下载成功。源库未覆盖，备份与恢复库保留本地。最新时间、数量以 JSON 报告为准。
+
+当前迁移 `9d85bcfd0217`。前端主 JS 338.03KB、CSS122.70KB，无大包告警；构建体积不是页面性能或获奖认证。`evidence/query-plans.json` 保存真实14条空间工单上的3份 EXPLAIN ANALYZE/BUFFERS，仅说明小数据查询计划。未测吞吐和容量。
+
+### 验收命令
+
+```powershell
+# 根目录
+& .venv/Scripts/python.exe -m pip check
+& .venv/Scripts/python.exe -m alembic -c backend/alembic.ini upgrade head
+& .venv/Scripts/python.exe scripts/check_database.py
+& .venv/Scripts/python.exe scripts/backup_restore.py
+# backend 目录
+& ../.venv/Scripts/python.exe -m pytest -q -p no:cacheprovider --junitxml=../docs/evidence/pytest-all.xml
+# frontend 目录
+node node_modules/vue-tsc/bin/vue-tsc.js --noEmit
+node node_modules/vite/bin/vite.js build
+node node_modules/@playwright/test/cli.js test
+```
+
+### 环境待验收项
+
+1. Linux + Docker 启动 Compose/Nginx，执行真实 Redis/Celery 烟测。
+2. 配置独立 TEST_REDIS_URL，执行 Lua 并发限流、窗口恢复、HTTP429；Redis 故障关闭登录已通过故障注入测试。
+3. 选择 GitHub 远程并推送后运行 Actions，目前没有远程执行记录。
+
+Windows `.env` 明确 `RATE_LIMIT_ENABLED=false`；自动消费者未运行，新导出会排队。Compose 默认启用 Redis 限流与 Linux Worker。CSV 本机执行/下载验证不代表队列已启动。
+
+设计取舍与学习说明：[业务与可靠性](workflow-and-reliability.md)、[部署与恢复](deployment.md)。附件采用限量数据库二进制，评论复用不可变活动表，CSV 放私有持久卷，与草案的差异均已记录。
+
+---
+
+## 以下为阶段一与视觉重构历史
+
 界面升级（2026-10-04）：已完成品牌视觉、响应式和微交互迭代，并通过浏览器流程、类型检查与构建。完整结果及范围见 [设计自检](design-review.md)。此轮不是 F02/F03 后续业务验收。
 
 **阶段一通过（2026-10-04，Asia/Shanghai）。完整 F01—F04 尚未完成。**

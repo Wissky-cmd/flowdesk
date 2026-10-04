@@ -7,7 +7,7 @@ try {
     & .venv/Scripts/python.exe -m alembic -c backend/alembic.ini check
     if ($LASTEXITCODE) { throw 'Migration drift detected' }
     Push-Location backend
-    try { & ../.venv/Scripts/python.exe -m pytest --junitxml=../docs/evidence/pytest.xml -q; if ($LASTEXITCODE) { throw 'Backend tests failed' } }
+    try { & ../.venv/Scripts/python.exe -m pytest -p no:cacheprovider --junitxml=../docs/evidence/pytest-all.xml -q; if ($LASTEXITCODE) { throw 'Backend tests failed' } }
     finally { Pop-Location }
     Push-Location frontend
     try {

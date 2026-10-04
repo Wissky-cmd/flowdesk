@@ -1,0 +1,75 @@
+{
+  "pip_version": "26.2.1",
+  "packages": [
+    {
+      "name": "celery",
+      "version": "5.6.3",
+      "sha256": "0808f42f80909c4d5833202360ffafb2a4f83f4d8e23e1285d926610e9a7afa6"
+    },
+    {
+      "name": "redis",
+      "version": "6.4.0",
+      "sha256": "f0544fa9604264e9464cdf4814e7d4830f74b165d52f2a330a760a88dd248b7f"
+    },
+    {
+      "name": "billiard",
+      "version": "4.3.0",
+      "sha256": "be3e51fb6202df38e1d67ff0aa3bfa4cdc1838a3c47c36373cc3220c6b787c2a"
+    },
+    {
+      "name": "vine",
+      "version": "5.1.0",
+      "sha256": "40fdf3c48b2cfe1c38a49e9ae2da6fda88e4794c810050a728bd7413811fb1dc"
+    },
+    {
+      "name": "click-didyoumean",
+      "version": "0.3.1",
+      "sha256": "5c4bb6007cfea5f2fd6583a2fb6701a22a41eb98957e63d0fac41c10e7c3117c"
+    },
+    {
+      "name": "click-plugins",
+      "version": "1.1.1.2",
+      "sha256": "008d65743833ffc1f5417bf0e78e8d2c23aab04d9745ba817bd3e71b0feb6aa6"
+    },
+    {
+      "name": "click-repl",
+      "version": "0.4.0",
+      "sha256": "fee730650f34204f1bd41b8fab46f6b51dda019b4a35ed89ab8553ba31f7d6d3"
+    },
+    {
+      "name": "kombu",
+      "version": "5.6.2",
+      "sha256": "efcfc559da324d41d61ca311b0c64965ea35b4c55cc04ee36e55386145dace93"
+    },
+    {
+      "name": "amqp",
+      "version": "5.4.0",
+      "sha256": "5d931d8442a403b6d4a5725a868a55edaa40734eae37d282b16be9fa710bd8ee"
+    },
+    {
+      "name": "prompt_toolkit",
+      "version": "3.0.53",
+      "sha256": "01c0891d7f9237d5e339f7d3e42cdae80b7534abb1c7c0e3352efba6231492f2"
+    },
+    {
+      "name": "python-dateutil",
+      "version": "2.9.0.post0",
+      "sha256": "a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427"
+    },
+    {
+      "name": "six",
+      "version": "1.17.0",
+      "sha256": "4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274"
+    },
+    {
+      "name": "wcwidth",
+      "version": "0.9.1",
+      "sha256": "991d1c8834f548e9c1f16432075ee84638e122312556bbf1ed595ea8fffc4673"
+    },
+    {
+      "name": "tzlocal",
+      "version": "5.4.4",
+      "sha256": "aae09f0126a8a86fa736be266eb4a471380d26a0de3bc14844e7821fee3e2a15"
+    }
+  ]
+}

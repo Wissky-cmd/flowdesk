@@ -65,6 +65,82 @@
   },
   "suites": [
     {
+      "title": "operations.spec.ts",
+      "file": "operations.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "task center executes real database export and exposes downloadable result",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3568,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T11:27:01.417Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4f8fd72df7d8ab107a64-baea50fb11f6aaf15b9b",
+          "file": "operations.spec.ts",
+          "line": 16,
+          "column": 1
+        },
+        {
+          "title": "token shown once, scope limited, revoked; mobile settings layout",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3985,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T11:27:05.245Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4f8fd72df7d8ab107a64-04e5570a606158d7f1e9",
+          "file": "operations.spec.ts",
+          "line": 45,
+          "column": 1
+        }
+      ]
+    },
+    {
       "title": "tickets.spec.ts",
       "file": "tickets.spec.ts",
       "column": 0,
@@ -86,12 +162,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2650,
+                  "duration": 5371,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-04T09:53:14.649Z",
+                  "startTime": "2026-10-04T11:27:09.261Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -120,12 +196,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 654,
+                  "duration": 821,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-04T09:53:17.978Z",
+                  "startTime": "2026-10-04T11:27:14.648Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -135,7 +211,83 @@
           ],
           "id": "d0af0b82280f1821db49-6dcba1682e2708d2d38f",
           "file": "tickets.spec.ts",
-          "line": 44,
+          "line": 45,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "workflow.spec.ts",
+      "file": "workflow.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "requester creates, agent assigns and processes, owner accepts; comments, attachment, filters and board",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11935,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T11:27:15.506Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-0a340b240cc1e1947fd7",
+          "file": "workflow.spec.ts",
+          "line": 21,
+          "column": 1
+        },
+        {
+          "title": "conflicting editors preserve the losing draft until latest version is loaded",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3356,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T11:27:27.458Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-035bc77161c910f52041",
+          "file": "workflow.spec.ts",
+          "line": 84,
           "column": 1
         }
       ]
@@ -143,9 +295,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-10-04T09:53:14.259Z",
-    "duration": 4828.370000000001,
-    "expected": 2,
+    "startTime": "2026-10-04T11:27:00.954Z",
+    "duration": 30536.293,
+    "expected": 6,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0

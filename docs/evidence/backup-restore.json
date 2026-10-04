@@ -1,0 +1,41 @@
+{
+  "executed_at": "2026-10-04T17:13:52.100146+00:00",
+  "source": "flowdesk",
+  "restored_database": "flowdesk_restore_20261004_171348_test",
+  "snapshot_and_write_lock": true,
+  "inventory_matches": true,
+  "counts": {
+    "alembic_version": 1,
+    "attachments": 3,
+    "idempotency_requests": 10,
+    "integration_tokens": 4,
+    "job_events": 12,
+    "jobs": 4,
+    "memberships": 5,
+    "outbox_events": 4,
+    "sessions": 28,
+    "ticket_events": 34,
+    "tickets": 15,
+    "users": 5,
+    "workspaces": 2
+  },
+  "attachment_sha256": {
+    "3b2ba95e-6285-4fce-bcf2-4ef1a40f9ab9": "a7751c1265a30496c959cd4dcdb3935578b0f8b1c0de45bca1f7f3662f5b0033",
+    "a606cdbd-e647-4072-87b8-4d759c2ad1ab": "a7751c1265a30496c959cd4dcdb3935578b0f8b1c0de45bca1f7f3662f5b0033",
+    "ad26bbec-e178-4e6f-9639-a6c8bb7ed61a": "a7751c1265a30496c959cd4dcdb3935578b0f8b1c0de45bca1f7f3662f5b0033"
+  },
+  "revision": "9d85bcfd0217",
+  "export_sha256": {
+    "c232d4d6-4182-4fea-b542-e348dcdf9a90.csv": "8650b69fff41ed41217306a0e193d2280806f7fdb030aa9b37c9ac7af17d1946",
+    "7313e1c0-f09c-484e-8e07-cb55e40abaa2.csv": "dcc98cde1da2403fe1f67bf745f8f98e55b24982000aab101e67d5b1642697c3",
+    "3fc4d3e1-69ad-43c7-9d37-75c2ca2f8ae9.csv": "dcc98cde1da2403fe1f67bf745f8f98e55b24982000aab101e67d5b1642697c3",
+    "83bde594-11f0-4f59-b43a-644ff6645130.csv": "5df229b587fd9f2e26daede4fef30b807f0c69716214e57f4e8461de76bcf462"
+  },
+  "api": {
+    "login": "passed",
+    "ticket_read": "passed",
+    "attachments_downloaded": 3,
+    "exports_downloaded": 4
+  },
+  "backup_sha256": "3d90636e47f62a7c45b868b21a2b5fbcbd8bde2f077343fc5ae1e3166af4b9f2"
+}

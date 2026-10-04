@@ -1,12 +1,12 @@
 # FlowDesk 团队工单与服务管理平台
 
-面向学习与作品展示的模块化单体。阶段一提供登录会话、工作空间成员权限和工单创建 / 列表 / 详情，配套 Vue 页面。后续阶段见 [验收记录](docs/acceptance.md)，未实现的功能不计入完成成果。
+面向学习与作品展示的模块化单体。已实现登录、空间权限、工单全流程、筛选、评论附件、看板、任务中心、有限重试与集成授权。交付 Compose/Nginx/CI 和备份恢复脚本。实际验证边界见 [验收记录](docs/acceptance.md)：Windows 本机功能通过，真实 Redis、Linux Worker、容器部署与远程 CI 尚待运行环境验收。
 
 ## 当前环境
 
 已实测 Windows、Python **3.14.7**、Node **24.19.0**、pnpm **11.25.0**、PostgreSQL **18.6**。后端完整版本见 `backend/requirements.lock`；Windows 3.14 二进制包 SHA256 见 `backend/requirements-win.lock`；前端完整版本由 `frontend/pnpm-lock.yaml` 锁定。
 
-Psycopg 在 Windows 上需要 Selector 事件循环，入口 `backend/run.py` 与迁移、种子入口统一使用 `app/runtime.py`。未修改全局 Python。Linux 运行与 Celery Worker 尚未验收；任务阶段将在 Linux 容器内核验并锁定依赖。
+Psycopg 在 Windows 上需要 Selector 事件循环，入口 `backend/run.py` 与迁移、种子入口统一使用 `app/runtime.py`。未修改全局 Python。Celery 5.6.3 / Kombu 5.6.2 的 Redis 扩展要求 redis<6.5，客户端锁为 6.4.0。Linux x86_64 哈希锁文件已完成平台解析，Linux 实际运行尚未验收。
 
 ## 本机直接使用
 
@@ -16,7 +16,7 @@ Psycopg 在 Windows 上需要 Selector 事件循环，入口 `backend/run.py` �
 ./scripts/start.ps1
 ```
 
-访问 <http://127.0.0.1:5173>。当前本机依赖与数据库已准备好。
+访问 <http://127.0.0.1:5173>。当前本机依赖与数据库已准备好。此 Windows 环境无 Redis/Linux Worker，`.env` 明确关闭登录限流；任务中心可以入库排队，但自动消费需要下面的 Linux 部署。浏览器测试会直接运行真实任务函数来验收 CSV 页面，这不等于队列验收。
 
 | 邮箱 | 空间 | 角色 |
 | --- | --- | --- |
@@ -86,10 +86,11 @@ Playwright 优先使用本机 Chrome / Edge；没有时在 frontend 运行 `../s
 
 ## 代码导航与学习
 
-- `backend/app/models.py`：5 张业务表与组合外键；`backend/alembic/versions`：独立、可回滚迁移。
+- `backend/app/models.py`：12 张业务表与组合外键；`backend/alembic/versions`：独立、可回滚迁移。
 - `backend/app/security.py`、`auth.py`：密码散列、随机会话、过期 / 撤销、CSRF。
 - `backend/app/workspaces.py`：每次请求查询成员关系、角色管理、最后一位管理员保护。
-- `backend/app/tickets.py`：Pydantic 输入、按空间与提交人过滤、负责人校验与事务提交。
+- `backend/app/tickets.py`：状态机、全量筛选、乐观锁、幂等创建、审计、附件；`integrations.py`：有限 scope 令牌。
+- `backend/app/jobs.py`、`job_runtime.py`：任务入口、outbox、预算、租约、原子文件发布与权限复验；`worker.py` / `dispatcher.py`：Celery 与独立投递器。
 - `frontend/src/api.ts`、`store.ts`：接口错误、会话状态；`views`：业务页面。
 - `backend/tests`、`frontend/tests`：真实 PostgreSQL 与浏览器验收。
 
@@ -97,4 +98,4 @@ Playwright 优先使用本机 Chrome / Edge；没有时在 frontend 运行 `../s
 
 失败链路：另一空间用户即使知道工单 UUID，成员检查仍返回 404；同空间提交人访问他人工单，也会被包含 `creator_id` 的查询条件过滤。前端路由守卫用于交互，后端才是权限边界。
 
-练习：① 给工单新增可选联系方式，写迁移与校验；② 为禁用负责人补充独立测试；③ 解释退出后旧 Cookie 为何不能重放，并追踪对应测试。
+完整状态矩阵、事务边界、失败路径和学习练习见 [业务与可靠性说明](docs/workflow-and-reliability.md)。Linux Compose、真实队列测试、GitHub Actions、日志和备份恢复见 [部署说明](docs/deployment.md)。

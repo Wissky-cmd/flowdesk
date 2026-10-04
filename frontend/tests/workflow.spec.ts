@@ -1,0 +1,107 @@
+import { test, expect, type Page } from '@playwright/test'
+import { readFileSync, mkdirSync } from 'node:fs'
+
+const password: string = process.env.SEED_PASSWORD || JSON.parse(readFileSync('../.local/credentials.json', 'utf8')).seed
+const wid = 'f441fe89-3299-51c1-ab7b-1a23105e255f'
+const evidence = '../docs/evidence/phase-two'
+mkdirSync(evidence, { recursive: true })
+async function login(page: Page, person: string) {
+  await page.goto('/login')
+  await page.getByLabel('邮箱', {exact: true}).fill(`${person}@flowdesk.example`)
+  await page.getByLabel('密码', {exact: true}).fill(password)
+  await page.getByRole('button', {name: '登录 FlowDesk'}).click()
+  await expect(page.getByRole('heading', {name: /你好/})).toBeVisible()
+}
+async function advance(page: Page, value: string, label: string) {
+  await page.getByLabel('下一步操作').selectOption(value)
+  await page.getByRole('button', {name: '确认' + label}).click()
+  await expect(page.getByText('工单状态已更新')).toBeVisible()
+  await expect(page.locator('.page-heading .status-chip')).toHaveText(({accepted:'已受理',in_progress:'处理中',review:'待验收',closed:'已关闭'} as Record<string,string>)[value])
+}
+test('requester creates, agent assigns and processes, owner accepts; comments, attachment, filters and board', async ({ page, browser }) => {
+  await login(page, 'alice')
+  await page.goto(`/w/${wid}/tickets/new`)
+  const title = `浏览器验收：闭环协作 ${Date.now()}`
+  await page.getByLabel('工单标题').fill(title)
+  await page.getByLabel('详细描述').fill('从提交到关闭，验证真实权限、协作记录与状态流转。')
+  await page.getByRole('button', {name: '提交工单'}).click()
+  await expect(page.getByRole('heading', {name:title})).toBeVisible()
+  const detailUrl = page.url()
+  await page.getByLabel('补充进展或反馈').fill('已补充复现步骤，请安排处理。')
+  await page.getByRole('button', {name:'发布评论'}).click()
+  await expect(page.getByText('评论已发布')).toBeVisible()
+  await page.getByLabel('选择附件').setInputFiles({name:'验收说明.txt', mimeType:'text/plain', buffer:Buffer.from('真实附件往返测试')})
+  await expect(page.getByText('附件已上传')).toBeVisible()
+  const downloadEvent = page.waitForEvent('download')
+  await page.getByRole('link', {name:/验收说明.txt/}).click()
+  const download = await downloadEvent
+  expect(readFileSync((await download.path())!, 'utf8')).toBe('真实附件往返测试')
+  const context = await browser.newContext()
+  const agent = await context.newPage()
+  await login(agent, 'agent')
+  await agent.goto(detailUrl)
+  await agent.getByRole('button', {name:'编辑详情'}).click()
+  await agent.getByLabel('负责人', {exact:true}).selectOption({label:'陈处理员'})
+  await agent.getByRole('button', {name:'保存修改'}).click()
+  await expect(agent.getByText('修改已保存')).toBeVisible()
+  await advance(agent, 'accepted', '受理工单')
+  await advance(agent, 'in_progress', '开始处理')
+  await advance(agent, 'review', '提交验收')
+  await expect(agent.getByLabel('下一步操作')).toHaveCount(0)
+  await page.reload()
+  await advance(page, 'closed', '验收通过')
+  await page.reload()
+  await expect(page.locator('.page-heading .status-chip')).toHaveText('已关闭')
+  await page.screenshot({path:`${evidence}/detail-desktop.png`,fullPage:true})
+  await page.goto(`/w/${wid}/tickets`)
+  await page.getByLabel('搜索全部工单').fill(title)
+  await page.getByRole('button', {name:'搜索',exact:true}).click()
+  await expect(page.getByRole('link', {name:title,exact:true})).toBeVisible()
+  await page.getByLabel('筛选状态').selectOption('new')
+  await expect(page.getByText('暂时没有匹配的工单')).toBeVisible()
+  await page.goto(`/w/${wid}/board`)
+  await expect(page.getByRole('heading', {name:/协作，一目了然/})).toBeVisible()
+  await expect(page.getByRole('heading', {name:title})).toBeVisible()
+  await page.screenshot({path:`${evidence}/board-desktop.png`,fullPage:true})
+  for (const width of [1440, 1024, 768, 390, 320]) {
+    await page.setViewportSize({width,height:900})
+    for (const path of [`/w/${wid}/board`, detailUrl, `/w/${wid}/tickets`]) {
+      await page.goto(path)
+      await expect(page.locator('[aria-busy="true"]')).toHaveCount(0)
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${width} ${path}`).toBeTruthy()
+    }
+  }
+  await page.setViewportSize({width:390,height:844})
+  await page.goto(detailUrl)
+  await expect(page.locator('.page-heading .status-chip')).toHaveText('已关闭')
+  await page.screenshot({path:`${evidence}/detail-mobile.png`,fullPage:true})
+  await page.goto(`/w/${wid}/board`)
+  await expect(page.locator('[aria-busy="true"]')).toHaveCount(0)
+  await page.screenshot({path:`${evidence}/board-mobile.png`,fullPage:true})
+  await context.close()
+})
+
+test('conflicting editors preserve the losing draft until latest version is loaded', async ({page,context}) => {
+  await login(page,'admin')
+  await page.goto(`/w/${wid}/tickets/new`)
+  const title = `浏览器验收：并发草稿 ${Date.now()}`
+  await page.getByLabel('工单标题').fill(title)
+  await page.getByLabel('详细描述').fill('验证冲突时不静默覆盖。')
+  await page.getByRole('button', {name:'提交工单'}).click()
+  await expect(page.getByRole('heading', {name:title})).toBeVisible()
+  const second = await context.newPage()
+  await second.goto(page.url())
+  for (const tab of [page,second]) await tab.getByRole('button',{name:'编辑详情'}).click()
+  await page.getByLabel('工单标题').fill(title + ' A')
+  await second.getByLabel('工单标题').fill(title + ' B')
+  await page.getByRole('button',{name:'保存修改'}).click()
+  await expect(page.getByText('修改已保存')).toBeVisible()
+  await second.getByRole('button',{name:'保存修改'}).click()
+  await expect(second.getByText('工单已被其他人更新。请加载最新版本，再确认你的修改')).toBeVisible()
+  await expect(second.getByLabel('工单标题')).toHaveValue(title + ' B')
+  await expect(second.getByRole('button',{name:'保存修改'})).toBeDisabled()
+  await second.getByRole('button',{name:'加载最新版本，保留草稿'}).click()
+  await expect(second.getByLabel('工单标题')).toHaveValue(title + ' B')
+  await expect(second.getByRole('button',{name:'保存修改'})).toBeEnabled()
+  await second.screenshot({path:`${evidence}/conflict-draft.png`,fullPage:true})
+})

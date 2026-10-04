@@ -13,6 +13,7 @@ async function login(page: Page, who: string) {
 test('browser login, create, list, refresh, and separate workspace isolation', async ({ page, browser }) => {
   await login(page, 'alice')
   await page.getByRole('link', { name: /产品与研发/ }).click()
+  await expect(page).toHaveURL(/\/tickets$/)
   const listUrl = page.url()
   await page.getByRole('button', { name: '创建工单' }).click()
   const title = `浏览器验收：团队访问请求 ${Date.now()}`

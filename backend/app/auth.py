@@ -9,6 +9,7 @@ from starlette.concurrency import run_in_threadpool
 from .config import settings
 from .models import LoginSession, Membership, User, Workspace
 from .security import COOKIE, DB, CurrentUser, csrf_token, digest, hash_password, verify_password
+from .rate_limit import check_login_limit
 
 router = APIRouter()
 DUMMY_HASH = hash_password(secrets.token_urlsafe(32))
@@ -21,6 +22,7 @@ class LoginInput(BaseModel):
 
 @router.post('/auth/login')
 async def login(data: LoginInput, request: Request, response: Response, db: DB):
+    await check_login_limit(request, data.email)
     user = await db.scalar(select(User).where(User.email == data.email.strip().lower()))
     valid = await run_in_threadpool(verify_password, data.password, user.password_hash if user else DUMMY_HASH)
     if not user or not valid or not user.is_active:

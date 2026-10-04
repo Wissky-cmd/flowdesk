@@ -1,0 +1,76 @@
+name: FlowDesk verification
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:18.6-bookworm
+        env:
+          POSTGRES_PASSWORD: ci-disposable-password
+          POSTGRES_USER: flowdesk
+          POSTGRES_DB: flowdesk
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U flowdesk -d flowdesk"
+          --health-interval 5s --health-timeout 3s --health-retries 20
+      redis:
+        image: redis:7.4.2-alpine
+        ports: ['6379:6379']
+        options: --health-cmd "redis-cli ping" --health-interval 5s --health-timeout 3s --health-retries 20
+    env:
+      DATABASE_URL: postgresql+psycopg://flowdesk:ci-disposable-password@127.0.0.1:5432/flowdesk
+      TEST_DATABASE_URL: postgresql+psycopg://flowdesk:ci-disposable-password@127.0.0.1:5432/flowdesk_test
+      TEST_REDIS_URL: redis://127.0.0.1:6379/15
+      BROKER_URL: redis://127.0.0.1:6379/14
+      RATE_LIMIT_ENABLED: 'false'
+      COOKIE_SECURE: 'false'
+      SEED_PASSWORD: ci-only-disposable-seed-password
+      PYTHONPATH: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.14.7'}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24.19.0'}
+      - run: pip install --require-hashes -r backend/requirements-linux.lock
+      - run: pip check
+      - name: Create isolated test database
+        run: python -c "import os,psycopg; c=psycopg.connect(os.environ['DATABASE_URL'].replace('postgresql+psycopg','postgresql'),autocommit=True); c.execute('CREATE DATABASE flowdesk_test')"
+      - run: python scripts/check_database.py
+      - run: python -m pytest backend/tests -q -p no:cacheprovider --junitxml=docs/evidence/ci-pytest.xml
+      - run: python scripts/queue_smoke.py
+      - run: npm install --global pnpm@11.25.0
+      - run: pnpm install --frozen-lockfile
+        working-directory: frontend
+      - run: pnpm exec vue-tsc --noEmit && pnpm build
+        working-directory: frontend
+      - run: pnpm exec playwright install --with-deps chromium
+        working-directory: frontend
+      - name: Start development services for browser acceptance
+        run: |
+          python -m alembic -c backend/alembic.ini upgrade head
+          python -m app.seed
+          python backend/run.py > /tmp/flowdesk-api.log 2>&1 &
+          cd frontend
+          pnpm dev --host 127.0.0.1 > /tmp/flowdesk-web.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5173 >/dev/null && curl -fsS http://127.0.0.1:8000/api/v1/health && break; sleep 1; done
+      - run: pnpm exec playwright test
+        working-directory: frontend
+      - name: Validate and build deployment
+        env: {POSTGRES_PASSWORD: ci-compose-only-password, POSTGRES_ADMIN_PASSWORD: ci-compose-admin-password}
+        run: docker compose config --quiet && docker compose build
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: verification-evidence
+          path: |
+            docs/evidence/ci-pytest.xml
+            docs/evidence/playwright.json
+            docs/evidence/phase-two
+            docs/evidence/phase-three
+            frontend/test-results
+            .local/queue-smoke.log

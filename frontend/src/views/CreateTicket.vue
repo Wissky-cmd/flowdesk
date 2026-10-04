@@ -7,11 +7,15 @@ import Icon from '../components/Icon.vue'
 const route = useRoute(), router = useRouter(), auth = useAuth(), wid = String(route.params.wid)
 const form = reactive({ title: '', body: '', priority: 'normal', assignee_id: null as string | null })
 const error = ref(''), busy = ref(false), assignees = ref<{id: string; name: string}[]>([])
+let requestKey = crypto.randomUUID(), submittedBody = ''
 const canAssign = computed(() => auth.me?.workspaces.find(w => w.id === wid)?.role !== 'requester')
 onMounted(async () => { if (canAssign.value) { try { assignees.value = await api(`/workspaces/${wid}/assignees`) } catch (e) { error.value = (e as Error).message } } })
 async function submit() {
   busy.value = true; error.value = ''
-  try { const ticket = await api<Ticket>(`/workspaces/${wid}/tickets`, 'POST', form); await router.push(`/w/${wid}/tickets/${ticket.id}`) }
+  const payload = JSON.stringify(form)
+  if (submittedBody && submittedBody !== payload) requestKey = crypto.randomUUID()
+  submittedBody = payload
+  try { const ticket = await api<Ticket>(`/workspaces/${wid}/tickets`, 'POST', form, { 'Idempotency-Key': requestKey }); await router.push(`/w/${wid}/tickets/${ticket.id}`) }
   catch (e) { error.value = (e as Error).message } finally { busy.value = false }
 }
 </script>

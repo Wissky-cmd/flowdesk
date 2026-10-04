@@ -1,0 +1,19 @@
+No new upgrade operations detected.
+种子数据已就绪；重复执行不会重置密码或覆盖现有数据。
+种子数据已就绪；重复执行不会重置密码或覆盖现有数据。
+{
+  "migration_roundtrip": "passed",
+  "seed_idempotence": "passed",
+  "before": {
+    "users": 5,
+    "workspaces": 2,
+    "memberships": 5,
+    "tickets": 3
+  },
+  "after": {
+    "users": 5,
+    "workspaces": 2,
+    "memberships": 5,
+    "tickets": 3
+  }
+}
