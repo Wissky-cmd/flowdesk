@@ -69,6 +69,13 @@ test('WCAG audit of every view and interactive form states', async ({page}) => {
 })
 
 test('keyboard navigation, focus return, reduced motion and 320px reflow', async ({page}) => {
+  const focusEvents: string[] = []
+  await page.exposeFunction('recordKeyboardFocus', (value: string) => focusEvents.push(value))
+  await page.addInitScript(() => {
+    const record = (value: string) => (window as unknown as {recordKeyboardFocus:(value:string)=>void}).recordKeyboardFocus(value)
+    document.addEventListener('focusin', event => record('focus '+(event.target as HTMLElement).className))
+    document.addEventListener('keydown', event => { if (event.key==='Tab') record(`tab shift=${event.shiftKey} prevented=${event.defaultPrevented} active=${(document.activeElement as HTMLElement)?.className}`) })
+  })
   await page.emulateMedia({reducedMotion:'reduce'})
   await login(page)
   await page.goto(`${base}/tickets`)
@@ -86,14 +93,17 @@ test('keyboard navigation, focus return, reduced motion and 320px reflow', async
     expect(await dialog.evaluate(el => el.contains(document.activeElement))).toBeTruthy()
   }
   await page.keyboard.press('Escape')
+  await expect(page.getByRole('dialog')).toHaveCount(0)
   await expect(page.getByRole('button',{name:'使用指南'})).toBeFocused()
   await page.setViewportSize({width:320,height:900})
+  await expect(page.getByRole('button',{name:'打开导航',exact:true})).toBeVisible()
   await page.getByRole('button',{name:'打开导航',exact:true}).focus()
   await page.keyboard.press('Enter')
   await expect(page.locator('.main-area')).toHaveAttribute('inert','')
   await expect(page.getByRole('button',{name:'使用指南'})).toBeInViewport()
+  await expect(page.getByRole('button',{name:'关闭导航',exact:true}).first()).toBeFocused()
   await page.keyboard.press('Shift+Tab')
-  await expect(page.getByRole('button',{name:'使用指南'})).toBeFocused()
+  await expect(page.getByRole('button',{name:'使用指南'}),focusEvents.slice(-12).join('\n')).toBeFocused()
   await page.keyboard.press('Tab')
   await expect(page.getByRole('button',{name:'关闭导航',exact:true}).first()).toBeFocused()
   await page.keyboard.press('Escape')
