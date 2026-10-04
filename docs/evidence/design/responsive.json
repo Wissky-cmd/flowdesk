@@ -1,0 +1,38 @@
+[
+  {
+    "content": 305,
+    "heroWidth": 275,
+    "overflow": false,
+    "viewport": 320
+  },
+  {
+    "content": 375,
+    "heroWidth": 335,
+    "overflow": false,
+    "viewport": 390
+  },
+  {
+    "content": 753,
+    "heroWidth": 521,
+    "overflow": false,
+    "viewport": 768
+  },
+  {
+    "content": 1265,
+    "heroWidth": 931,
+    "overflow": false,
+    "viewport": 1280
+  },
+  {
+    "content": 1425,
+    "heroWidth": 1091,
+    "overflow": false,
+    "viewport": 1440
+  },
+  {
+    "content": 1905,
+    "heroWidth": 1498,
+    "overflow": false,
+    "viewport": 1920
+  }
+]

@@ -1,0 +1,56 @@
+[
+  {
+    "background": "rgb(255, 254, 250)",
+    "contrast": 8.5,
+    "foreground": "rgb(59, 82, 55)",
+    "selector": ".ticket-title"
+  },
+  {
+    "background": "rgb(255, 254, 250)",
+    "contrast": 4.78,
+    "foreground": "rgb(102, 119, 90)",
+    "selector": ".ticket-id"
+  },
+  {
+    "background": "rgb(255, 254, 250)",
+    "contrast": 4.94,
+    "foreground": "rgb(102, 116, 91)",
+    "selector": ".ticket-date"
+  },
+  {
+    "background": "rgb(241, 246, 233)",
+    "contrast": 4.87,
+    "foreground": "rgb(87, 115, 61)",
+    "selector": ".status-chip"
+  },
+  {
+    "background": "rgb(255, 254, 250)",
+    "contrast": 5.48,
+    "foreground": "rgb(139, 96, 37)",
+    "selector": ".priority.high"
+  },
+  {
+    "background": "rgb(233, 237, 221)",
+    "contrast": 5.01,
+    "foreground": "rgb(84, 106, 66)",
+    "selector": ".ticket-hero p"
+  },
+  {
+    "background": "rgb(252, 253, 249)",
+    "contrast": 8.42,
+    "foreground": "rgb(59, 82, 51)",
+    "selector": ".search-field input"
+  },
+  {
+    "background": "rgb(246, 247, 242)",
+    "contrast": 4.77,
+    "foreground": "rgb(97, 115, 83)",
+    "selector": ".table-footer"
+  },
+  {
+    "background": "rgb(24, 62, 50)",
+    "contrast": 5.63,
+    "foreground": "rgb(165, 184, 164)",
+    "selector": ".nav-caption"
+  }
+]

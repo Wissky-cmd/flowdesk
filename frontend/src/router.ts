@@ -1,19 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Login from './views/Login.vue'
-import Workspaces from './views/Workspaces.vue'
-import Tickets from './views/Tickets.vue'
-import CreateTicket from './views/CreateTicket.vue'
-import TicketDetail from './views/TicketDetail.vue'
-import Members from './views/Members.vue'
 import { useAuth } from './store'
 import { ApiError } from './api'
 
-export const router = createRouter({ history: createWebHistory(), routes: [
-  { path: '/login', component: Login }, { path: '/', component: Workspaces },
-  { path: '/w/:wid/tickets', component: Tickets },
-  { path: '/w/:wid/tickets/new', component: CreateTicket },
-  { path: '/w/:wid/tickets/:id', component: TicketDetail },
-  { path: '/w/:wid/members', component: Members },
+export const router = createRouter({ history: createWebHistory(), scrollBehavior: () => ({ top: 0 }), routes: [
+  { path: '/login', component: () => import('./views/Login.vue') }, { path: '/', component: () => import('./views/Workspaces.vue') },
+  { path: '/w/:wid/tickets', component: () => import('./views/Tickets.vue') },
+  { path: '/w/:wid/tickets/new', component: () => import('./views/CreateTicket.vue') },
+  { path: '/w/:wid/tickets/:id', component: () => import('./views/TicketDetail.vue') },
+  { path: '/w/:wid/members', component: () => import('./views/Members.vue') },
   { path: '/:pathMatch(.*)*', redirect: '/' },
 ] })
 router.beforeEach(async to => {
