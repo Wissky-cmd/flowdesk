@@ -546,6 +546,9 @@ fieldset:disabled { cursor: wait; }
 
 /* WCAG AA: preserve the paper/forest palette while keeping small text legible. */
 :root { --el-text-color-placeholder: #63715f; --el-text-color-secondary: #596b5c; }
+.el-alert--error.is-light { --el-alert-text-color: #a12d2d; color: #a12d2d; }
+.el-alert--warning.is-light { --el-alert-text-color: #805919; color: #805919; }
+.el-alert--success.is-light { --el-alert-text-color: #326327; color: #326327; }
 .login-page { padding: 0; max-width: none; margin: 0; }
 .nav-number, .edition, .workflow-track li>span { opacity: 1; }
 .nav-section-label span, .sidebar-edition { color: #adc1ac; }

@@ -49,6 +49,9 @@ test('WCAG audit of every view and interactive form states', async ({page}) => {
   await page.getByLabel('详细描述').fill('验证表单、编辑、附件与协作操作的可访问性。')
   await page.getByRole('button',{name:'提交工单'}).click()
   await expect(page.getByRole('heading',{name:'请求详情',exact:true})).toBeVisible()
+  // Keyboard users use the visible upload button, never a transparent 1px file input.
+  await expect(page.getByLabel('选择附件')).toHaveAttribute('tabindex','-1')
+  await expect(page.getByRole('button',{name:'添加附件'})).toBeVisible()
   await audit(page,'ticket-detail')
   await page.getByRole('button',{name:'编辑详情'}).click()
   await audit(page,'ticket-edit')
@@ -57,8 +60,11 @@ test('WCAG audit of every view and interactive form states', async ({page}) => {
   await expect(page.getByRole('dialog')).toBeVisible()
   await audit(page,'help-dialog')
   await page.getByRole('dialog').press('Escape')
+  await expect(page.getByRole('dialog')).toHaveCount(0)
   await page.setViewportSize({width:320,height:900})
   await page.getByRole('button',{name:'打开导航',exact:true}).click()
+  await expect(page.getByRole('button',{name:'使用指南'})).toBeInViewport()
+  await expect(page.getByRole('navigation',{name:'主导航'}).getByRole('link',{name:/协作看板/})).toBeVisible()
   await audit(page,'mobile-navigation')
 })
 
@@ -107,4 +113,33 @@ test('text spacing overrides and narrow reflow retain every view', async ({page}
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),route).toBeTruthy()
     await expect(page.getByRole('button',{name:'打开导航',exact:true})).toBeVisible()
   }
+})
+
+test('token, retry error and task history dialogs remain accessible', async ({page}) => {
+  test.setTimeout(90000)
+  await page.emulateMedia({reducedMotion:'reduce'})
+  await login(page)
+  // UI-only dialog audit: never create or record a real integration secret.
+  await page.route('**/integration-tokens', route => route.request().method()==='POST'
+    ? route.fulfill({status:201,json:{token:'fd_public-accessibility-fixture-not-a-real-secret'}}) : route.continue())
+  await page.goto(`${base}/integrations`)
+  await page.getByLabel('用途名称').fill('无障碍测试用占位令牌')
+  await page.getByRole('button',{name:'创建令牌',exact:true}).click()
+  await expect(page.getByRole('dialog')).toBeVisible()
+  await audit(page,'token-dialog')
+  await page.getByRole('button',{name:'已保存，关闭'}).click()
+  const job={id:'aaaaaaaa-accessibility',status:'failed',generation:1,attempts:1,run_attempts:1,error_code:'EXPORT_ERROR',created_at:'2026-10-05T00:00:00Z',expires_at:'2099-10-06T00:00:00Z'}
+  await page.route('**/jobs?*',route => route.fulfill({json:{items:[job],total:1}}))
+  await page.route('**/jobs/aaaaaaaa-accessibility',route => route.fulfill({json:{...job,delivery_attempts:1,delivery_run_attempts:1,events:[{kind:'failed',generation:1,detail:{error_code:'EXPORT_ERROR'},created_at:job.created_at}]}}))
+  await page.route('**/jobs/*/retry',route => route.fulfill({status:429,json:{message:'最多同时保留 5 个待处理导出任务'}}))
+  await page.goto(`${base}/jobs`)
+  await page.getByRole('button',{name:'人工重试'}).click()
+  await page.getByLabel('重试原因').fill('恢复后重试')
+  await page.getByRole('button',{name:'确认重试'}).click()
+  await expect(page.getByRole('dialog').getByRole('alert')).toBeVisible()
+  await audit(page,'retry-error-dialog')
+  await page.getByRole('button',{name:'取消',exact:true}).click()
+  await page.getByRole('button',{name:'查看记录'}).click()
+  await expect(page.getByRole('dialog')).toBeVisible()
+  await audit(page,'job-history-dialog')
 })

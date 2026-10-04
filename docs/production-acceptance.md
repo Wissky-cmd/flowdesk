@@ -3,10 +3,19 @@
 ## 本机证据（2026-10-05）
 
 - PostgreSQL 回归：69 通过，真实 Redis 1 项在 Windows 未配置而跳过。`evidence/pytest-hardening.xml`。
-- Chromium / Firefox / WebKit 功能矩阵首轮 29 通过、WebKit 键盘 1 失败；修复跳转链接 Tab 顺序并等待移动导航展现后，三引擎全部 6 项无障碍复验通过。原始矩阵 `evidence/cross-browser.json`，最终无障碍 `evidence/accessibility-final.json`；没有将首轮失败记录改写成成功。
+- Chromium / Firefox / WebKit 功能矩阵首轮 29 通过、WebKit 键盘 1 失败；修复跳转链接与移动菜单 Tab 顺序，并扩展动态下拉和文字间距场景后，三引擎全部 **12 项**无障碍复验通过。原始矩阵 `evidence/cross-browser.json`，最终无障碍（含令牌、重试错误和历史弹窗）`evidence/accessibility-final.json`；没有将首轮失败记录改写成成功。
 - axe-core 4.13.0：登录、空间、工单列表、新建、详情、编辑、看板、任务、集成、成员、帮助弹窗、移动导航，三引擎 WCAG 2.0/2.1/2.2 A/AA 适用自动规则及最佳实践无违规。各页面报告在 `evidence/accessibility/`。
 - 修复辅助文字对比度、主地标、区域命名、标题层级、页面标题、成员编辑焦点和跳转链接键盘顺序。保持纸白与森林绿风格、原有布局及减少动画支持。
 - 自动化覆盖 Tab/Shift+Tab、主内容跳转、弹窗焦点限制/返回、移动菜单背景 inert/Escape、320px 无横向溢出。axe 的 incomplete 保留在报告中供人工核查；自动规则通过不是完整 WCAG 合规认证。真实 NVDA/VoiceOver 朗读、系统高对比与放大器仍需辅助技术人工验收，Playwright WebKit 也不等于真实 iOS Safari。
+
+人工代码/数值补查：头像原配色对比度 4.19、成员头像 3.67、自身标签 3.46，均低于普通小字 4.5 阈值，已统一加深文字。品牌标记 9.24；装饰 SVG/坐标隐藏于辅助技术。下拉折叠时 aria-controls 引用懒加载浮层被工具列为 incomplete，展开后逐引擎扫描验证；视图切换补 role=group。跳转链接通过真实 Tab/Enter 验证。不可见上传 input 退出 Tab 顺序，由可见“添加附件”按钮触发。
+
+| 需真人辅助技术验收 | 操作和通过条件 | 当前状态 |
+| --- | --- | --- |
+| Windows NVDA + Firefox | 完成登录、主内容跳转、创建/编辑/评论、状态选择、上传/下载；名称、角色、状态和错误可理解，焦点不丢失 | 未在 NVDA 运行 |
+| macOS/iOS VoiceOver + Safari | Rotor 地标/标题、触摸与外接键盘、弹窗进入/退出、任务结果朗读；不陷入导航 | 未在真实 Apple 设备运行 |
+| 放大/高对比 | 浏览器 200%/400% 与系统高对比逐页确认文字、焦点和操作不裁切、不只靠颜色区分 | 320px 重排与 WCAG 字距覆盖已自动测试，真实系统模式未验收 |
+| 业务内容理解 | 错误后的纠正路径、状态变化通知、空态与权限拒绝是否易懂 | 自动功能路径通过；需目标用户试用 |
 
 ## 十万条数据实测
 
@@ -51,3 +60,5 @@ CROSS_BROWSER=1 pnpm exec playwright test
 ```
 
 生产公网域名、TLS 证书、真实组织数据、备份保留策略与长期压测不在一次性验收栈中配置。
+
+第二轮 [Actions 37223093552](https://github.com/Wissky-cmd/flowdesk/actions/runs/37223093552) 的后端、真实队列、性能及 33 项跨浏览器测试全部通过；容器构建发现 Dockerfile 漏拷贝 pnpm-workspace.yaml，esbuild 构建许可未生效。已补齐许可配置，等待新一轮容器实测。

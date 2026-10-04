@@ -119,12 +119,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 10039,
+                  "duration": 9430,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-04T18:04:30.948Z",
+                  "startTime": "2026-10-04T18:12:27.104Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -153,12 +153,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1340,
+                  "duration": 1203,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-04T18:04:41.281Z",
+                  "startTime": "2026-10-04T18:12:36.814Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -168,7 +168,7 @@
           ],
           "id": "ddd864604af8a6a0198f-07711aae6c5ead57ae18",
           "file": "accessibility.spec.ts",
-          "line": 65,
+          "line": 71,
           "column": 1
         },
         {
@@ -187,12 +187,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2117,
+                  "duration": 1896,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-04T18:04:42.628Z",
+                  "startTime": "2026-10-04T18:12:38.023Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -202,7 +202,41 @@
           ],
           "id": "ddd864604af8a6a0198f-b20bd8c0289f72b22b4b",
           "file": "accessibility.spec.ts",
-          "line": 99,
+          "line": 105,
+          "column": 1
+        },
+        {
+          "title": "token, retry error and task history dialogs remain accessible",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2875,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:12:39.925Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ddd864604af8a6a0198f-dab45e7db95405aaced8",
+          "file": "accessibility.spec.ts",
+          "line": 118,
           "column": 1
         },
         {
@@ -221,12 +255,12 @@
                   "workerIndex": 1,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 17769,
+                  "duration": 16978,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-04T18:04:45.546Z",
+                  "startTime": "2026-10-04T18:12:43.570Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -255,12 +289,12 @@
                   "workerIndex": 1,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2347,
+                  "duration": 2728,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-04T18:05:03.975Z",
+                  "startTime": "2026-10-04T18:13:01.121Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -270,7 +304,7 @@
           ],
           "id": "ddd864604af8a6a0198f-2e899789dbb33b491830",
           "file": "accessibility.spec.ts",
-          "line": 65,
+          "line": 71,
           "column": 1
         },
         {
@@ -289,12 +323,12 @@
                   "workerIndex": 1,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 3965,
+                  "duration": 3700,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-04T18:05:06.333Z",
+                  "startTime": "2026-10-04T18:13:03.855Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -304,7 +338,41 @@
           ],
           "id": "ddd864604af8a6a0198f-8db2a0ab518344285d06",
           "file": "accessibility.spec.ts",
-          "line": 99,
+          "line": 105,
+          "column": 1
+        },
+        {
+          "title": "token, retry error and task history dialogs remain accessible",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4064,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:13:07.562Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ddd864604af8a6a0198f-5ea82315b5c4a55dd491",
+          "file": "accessibility.spec.ts",
+          "line": 118,
           "column": 1
         },
         {
@@ -323,12 +391,12 @@
                   "workerIndex": 2,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 18956,
+                  "duration": 19119,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-04T18:05:11.392Z",
+                  "startTime": "2026-10-04T18:13:12.636Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -357,12 +425,12 @@
                   "workerIndex": 2,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2417,
+                  "duration": 2419,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-04T18:05:30.549Z",
+                  "startTime": "2026-10-04T18:13:31.909Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -372,7 +440,7 @@
           ],
           "id": "ddd864604af8a6a0198f-d1ecb06b3f2bb44227a3",
           "file": "accessibility.spec.ts",
-          "line": 65,
+          "line": 71,
           "column": 1
         },
         {
@@ -391,12 +459,12 @@
                   "workerIndex": 2,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 4133,
+                  "duration": 3757,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-04T18:05:32.972Z",
+                  "startTime": "2026-10-04T18:13:34.334Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -406,7 +474,41 @@
           ],
           "id": "ddd864604af8a6a0198f-cd3acdccb694b34227ca",
           "file": "accessibility.spec.ts",
-          "line": 99,
+          "line": 105,
+          "column": 1
+        },
+        {
+          "title": "token, retry error and task history dialogs remain accessible",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5888,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:13:38.098Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ddd864604af8a6a0198f-64014d1df9e5d37b0cf7",
+          "file": "accessibility.spec.ts",
+          "line": 118,
           "column": 1
         }
       ]
@@ -414,9 +516,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-10-04T18:04:30.507Z",
-    "duration": 67004.368,
-    "expected": 9,
+    "startTime": "2026-10-04T18:12:26.609Z",
+    "duration": 77869.23999999999,
+    "expected": 12,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0
