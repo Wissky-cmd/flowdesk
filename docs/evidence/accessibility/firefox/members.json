@@ -4,6 +4,7 @@
     "name": "axe-core",
     "version": "4.13.0"
   },
+  "browser": "155.0",
   "violations": [],
   "incomplete": [
     {
@@ -23,24 +24,6 @@
       "targets": [
         [
           "a[aria-label=\"FlowDesk 首页\"] > .brand-mark"
-        ],
-        [
-          ".avatar"
-        ],
-        [
-          ".member-entry:nth-child(2) > .member-person > .member-avatar"
-        ],
-        [
-          ".member-entry:nth-child(3) > .member-person > .member-avatar"
-        ],
-        [
-          ".self-label"
-        ],
-        [
-          ".member-entry:nth-child(4) > .member-person > .member-avatar"
-        ],
-        [
-          ".member-entry:nth-child(5) > .member-person > .member-avatar"
         ]
       ]
     }

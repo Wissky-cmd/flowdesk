@@ -1,10 +1,10 @@
 {
-  "url": "/w/f441fe89-3299-51c1-ab7b-1a23105e255f/members",
+  "url": "/w/f441fe89-3299-51c1-ab7b-1a23105e255f/tickets/new",
   "engine": {
     "name": "axe-core",
     "version": "4.13.0"
   },
-  "browser": "26.6",
+  "browser": "155.0",
   "violations": [],
   "incomplete": [
     {
@@ -13,7 +13,10 @@
       "help": "ARIA attributes must conform to valid values",
       "targets": [
         [
-          "#member-role"
+          "#priority"
+        ],
+        [
+          "#assignee"
         ]
       ]
     },
@@ -24,9 +27,12 @@
       "targets": [
         [
           "a[aria-label=\"FlowDesk 首页\"] > .brand-mark"
+        ],
+        [
+          "label[for=\"priority\"]"
         ]
       ]
     }
   ],
-  "passedRules": 38
+  "passedRules": 43
 }

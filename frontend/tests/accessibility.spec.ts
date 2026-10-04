@@ -18,7 +18,7 @@ async function audit(page: Page, name: string) {
   mkdirSync(evidence,{recursive:true})
   // Store selectors and rule IDs, never DOM HTML or form values (tokens/passwords).
   const compact = (rules: typeof result.violations) => rules.map(r => ({id:r.id,impact:r.impact,help:r.help,targets:r.nodes.map(n => n.target)}))
-  writeFileSync(`${evidence}/${name}.json`,JSON.stringify({url:new URL(page.url()).pathname,engine:result.testEngine,
+  writeFileSync(`${evidence}/${name}.json`,JSON.stringify({url:new URL(page.url()).pathname,engine:result.testEngine,browser:page.context().browser()?.version(),
     violations:compact(result.violations),incomplete:compact(result.incomplete),passedRules:result.passes.length},null,2))
   expect.soft(result.violations.map(r => ({id:r.id,targets:r.nodes.map(n => n.target)})),name).toEqual([])
 }
@@ -34,6 +34,16 @@ test('WCAG audit of every view and interactive form states', async ({page}) => {
     await page.goto(`${base}/${route}`)
     await expect(page.locator('h1')).toBeVisible()
     await audit(page,route.replace('/','-'))
+    if (route === 'members' || route === 'tickets/new') {
+      const label = route === 'members' ? '空间角色' : '优先级'
+      const select = page.locator(route === 'members' ? '#member-role' : '#priority')
+      await expect(select).toHaveAccessibleName(new RegExp(label))
+      await select.focus()
+      await page.keyboard.press('ArrowDown')
+      await expect(page.getByRole('listbox')).toBeVisible()
+      await audit(page,route.replace('/','-')+'-options')
+      await page.keyboard.press('Escape')
+    }
   }
   await page.getByLabel('工单标题').fill(`无障碍验收 ${test.info().project.name} ${Date.now()}`)
   await page.getByLabel('详细描述').fill('验证表单、编辑、附件与协作操作的可访问性。')
@@ -84,4 +94,17 @@ test('keyboard navigation, focus return, reduced motion and 320px reflow', async
   await expect(page.getByRole('button',{name:'打开导航',exact:true})).toBeFocused()
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy()
   expect(await page.locator('.ribbon-lines').evaluate(el => parseFloat(getComputedStyle(el).animationDuration) <= 0.01)).toBeTruthy()
+})
+
+test('text spacing overrides and narrow reflow retain every view', async ({page}) => {
+  await page.emulateMedia({reducedMotion:'reduce'})
+  await login(page)
+  await page.setViewportSize({width:320,height:900})
+  for (const route of ['tickets','board','jobs','integrations','members','tickets/new']) {
+    await page.goto(`${base}/${route}`)
+    await expect(page.locator('h1')).toBeVisible()
+    await page.addStyleTag({content:'* { line-height: 1.5 !important; letter-spacing: .12em !important; word-spacing: .16em !important; } p { margin-bottom: 2em !important; }'})
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),route).toBeTruthy()
+    await expect(page.getByRole('button',{name:'打开导航',exact:true})).toBeVisible()
+  }
 })

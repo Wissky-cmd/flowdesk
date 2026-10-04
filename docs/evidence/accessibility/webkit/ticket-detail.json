@@ -1,9 +1,10 @@
 {
-  "url": "/w/f441fe89-3299-51c1-ab7b-1a23105e255f/tickets/c26a37f7-dcdf-42a8-9c3c-a05063df0212",
+  "url": "/w/f441fe89-3299-51c1-ab7b-1a23105e255f/tickets/b38e55e5-a226-4d61-a244-95c44ed31e70",
   "engine": {
     "name": "axe-core",
     "version": "4.13.0"
   },
+  "browser": "26.6",
   "violations": [],
   "incomplete": [
     {
@@ -13,9 +14,6 @@
       "targets": [
         [
           "a[aria-label=\"FlowDesk 首页\"] > .brand-mark"
-        ],
-        [
-          ".avatar"
         ]
       ]
     }

@@ -460,7 +460,7 @@ form label span { color: #a96043; }
 .filter-extra input, .filter-extra select { padding: 7px 10px; height: 37px; }
 .filter-extra input:focus, .filter-extra select:focus, .detail-edit :is(input,textarea,select):focus, .comment-form textarea:focus, .action-panel :is(select,textarea):focus { border-color: #66884f; box-shadow: 0 0 0 3px #9fbf7c20; }
 fieldset { padding: 0; margin: 0; border: 0; min-width: 0; }
-fieldset:disabled { opacity: .6; }
+fieldset:disabled { cursor: wait; }
 .detail-loading { padding: 40px; color: #586c5c; }
 .detail-id span { color: #72806b; }
 .detail-wrap>.page-heading h1 { font-size: clamp(26px, 3vw, 38px); letter-spacing: -1px; max-width: 850px; }
@@ -556,5 +556,6 @@ fieldset:disabled { opacity: .6; }
 .metadata dt, .member-columns, .member-email, .member-state, .guide-steps p,
 .ticket-id, .detail-id span, .workflow-track li, .board-empty { color: #526449; }
 .workspace-icon { color: #49652f; }
+.avatar, .member-avatar, .self-label { color: #405c31; }
 .workflow-track li.current { color: #ecf5df; }
 .el-input__count-inner, .el-select__placeholder.is-transparent { color: #63715f; }

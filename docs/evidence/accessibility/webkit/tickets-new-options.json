@@ -1,5 +1,5 @@
 {
-  "url": "/",
+  "url": "/w/f441fe89-3299-51c1-ab7b-1a23105e255f/tickets/new",
   "engine": {
     "name": "axe-core",
     "version": "4.13.0"
@@ -7,6 +7,19 @@
   "browser": "26.6",
   "violations": [],
   "incomplete": [
+    {
+      "id": "aria-valid-attr-value",
+      "impact": "critical",
+      "help": "ARIA attributes must conform to valid values",
+      "targets": [
+        [
+          "#priority"
+        ],
+        [
+          "#assignee"
+        ]
+      ]
+    },
     {
       "id": "color-contrast",
       "impact": "serious",
@@ -16,13 +29,10 @@
           "a[aria-label=\"FlowDesk 首页\"] > .brand-mark"
         ],
         [
-          ".greeting-dot"
-        ],
-        [
-          ".info-strip > span"
+          "label[for=\"priority\"]"
         ]
       ]
     }
   ],
-  "passedRules": 34
+  "passedRules": 43
 }

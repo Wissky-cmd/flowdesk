@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, onBeforeUnmount } from 'vue'
+import { computed, ref, onBeforeUnmount, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuth } from './store'
 import { roles } from './api'
@@ -11,7 +11,10 @@ const workspace = computed(() => auth.me?.workspaces.find(w => w.id === route.pa
 const error = ref('')
 const menuOpen = ref(false), helpOpen = ref(false)
 const initialOverflow = document.body.style.overflow
-watch(menuOpen, open => { document.body.style.overflow = open ? 'hidden' : initialOverflow })
+watch(menuOpen, async open => {
+  document.body.style.overflow = open ? 'hidden' : initialOverflow
+  if (open) { await nextTick(); menuToggle.value?.focus() }
+})
 onBeforeUnmount(() => { if (menuOpen.value) document.body.style.overflow = initialOverflow })
 const menuToggle = ref<HTMLButtonElement | null>(null), navigation = ref<HTMLElement | null>(null)
 function handleNavigationKey(event: KeyboardEvent) {
@@ -19,9 +22,13 @@ function handleNavigationKey(event: KeyboardEvent) {
   if (event.key === 'Escape') { menuOpen.value = false; menuToggle.value?.focus(); return }
   if (event.key !== 'Tab') return
   const controls = [menuToggle.value, ...Array.from(navigation.value?.querySelectorAll<HTMLElement>('a, button') || [])].filter((node): node is HTMLElement => !!node && node.getClientRects().length > 0)
-  const first = controls[0], last = controls[controls.length - 1]
-  if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus() }
-  if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus() }
+  const index = controls.indexOf(document.activeElement as HTMLElement)
+  if (controls.length) {
+    event.preventDefault()
+    const next = index < 0 ? (event.shiftKey ? controls.length - 1 : 0)
+      : (index + (event.shiftKey ? -1 : 1) + controls.length) % controls.length
+    controls[next]?.focus()
+  }
 }
 const desktopQuery = window.matchMedia('(min-width: 701px)')
 const closeMobileMenu = () => { if (desktopQuery.matches) menuOpen.value = false }

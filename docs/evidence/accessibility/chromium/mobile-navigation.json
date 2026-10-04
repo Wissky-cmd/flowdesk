@@ -1,9 +1,10 @@
 {
-  "url": "/w/f441fe89-3299-51c1-ab7b-1a23105e255f/tickets/eaca36b4-0c57-4517-be6e-120a81520bbe",
+  "url": "/w/f441fe89-3299-51c1-ab7b-1a23105e255f/tickets/26aeefbb-1bce-4b1d-8133-4ee18709a795",
   "engine": {
     "name": "axe-core",
     "version": "4.13.0"
   },
+  "browser": "153.0.8010.12",
   "violations": [],
   "incomplete": [
     {

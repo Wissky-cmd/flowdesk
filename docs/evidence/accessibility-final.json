@@ -119,12 +119,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 8548,
+                  "duration": 10039,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-04T17:50:13.181Z",
+                  "startTime": "2026-10-04T18:04:30.948Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -153,12 +153,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1296,
+                  "duration": 1340,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-04T17:50:22.041Z",
+                  "startTime": "2026-10-04T18:04:41.281Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -168,7 +168,41 @@
           ],
           "id": "ddd864604af8a6a0198f-07711aae6c5ead57ae18",
           "file": "accessibility.spec.ts",
-          "line": 55,
+          "line": 65,
+          "column": 1
+        },
+        {
+          "title": "text spacing overrides and narrow reflow retain every view",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2117,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:04:42.628Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ddd864604af8a6a0198f-b20bd8c0289f72b22b4b",
+          "file": "accessibility.spec.ts",
+          "line": 99,
           "column": 1
         },
         {
@@ -187,12 +221,12 @@
                   "workerIndex": 1,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 16281,
+                  "duration": 17769,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-04T17:50:24.158Z",
+                  "startTime": "2026-10-04T18:04:45.546Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -221,12 +255,12 @@
                   "workerIndex": 1,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2019,
+                  "duration": 2347,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-04T17:50:41.095Z",
+                  "startTime": "2026-10-04T18:05:03.975Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -236,7 +270,41 @@
           ],
           "id": "ddd864604af8a6a0198f-2e899789dbb33b491830",
           "file": "accessibility.spec.ts",
-          "line": 55,
+          "line": 65,
+          "column": 1
+        },
+        {
+          "title": "text spacing overrides and narrow reflow retain every view",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3965,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:05:06.333Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ddd864604af8a6a0198f-8db2a0ab518344285d06",
+          "file": "accessibility.spec.ts",
+          "line": 99,
           "column": 1
         },
         {
@@ -255,12 +323,12 @@
                   "workerIndex": 2,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 17902,
+                  "duration": 18956,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-04T17:50:44.069Z",
+                  "startTime": "2026-10-04T18:05:11.392Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -289,12 +357,12 @@
                   "workerIndex": 2,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2592,
+                  "duration": 2417,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-04T17:51:02.135Z",
+                  "startTime": "2026-10-04T18:05:30.549Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -304,7 +372,41 @@
           ],
           "id": "ddd864604af8a6a0198f-d1ecb06b3f2bb44227a3",
           "file": "accessibility.spec.ts",
-          "line": 55,
+          "line": 65,
+          "column": 1
+        },
+        {
+          "title": "text spacing overrides and narrow reflow retain every view",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4133,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:05:32.972Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ddd864604af8a6a0198f-cd3acdccb694b34227ca",
+          "file": "accessibility.spec.ts",
+          "line": 99,
           "column": 1
         }
       ]
@@ -312,9 +414,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-10-04T17:50:12.715Z",
-    "duration": 52630.714,
-    "expected": 6,
+    "startTime": "2026-10-04T18:04:30.507Z",
+    "duration": 67004.368,
+    "expected": 9,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0

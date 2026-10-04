@@ -4,6 +4,7 @@
     "name": "axe-core",
     "version": "4.13.0"
   },
+  "browser": "26.6",
   "violations": [],
   "incomplete": [
     {

@@ -29,7 +29,11 @@
 
 ## 远程与容器验收流程
 
-目标仓库 `https://github.com/Wissky-cmd/flowdesk`，独立 `codex/production-acceptance` 分支；不直接覆盖 main。实际远程运行结论与链接待 CI 执行后补录。
+目标仓库 `https://github.com/Wissky-cmd/flowdesk`，独立 `codex/production-acceptance` 分支；不直接覆盖 main。
+
+首轮 [Actions 37222189261](https://github.com/Wissky-cmd/flowdesk/actions/runs/37222189261) 在 Ubuntu 上完成 Linux 哈希锁安装、迁移往返、**70 项后端测试（含真实 Redis，无跳过）**、真实 Linux Celery/Redis 队列烟测和十万条性能验收。远程 8 并发查询 P95：首页 278.97 ms、深页 295.26 ms、搜索 810.64 ms、状态 155.79 ms、负责人 164.39 ms、汇总 501.72 ms；8,001 条 CSV 生成/下载 186.22 ms。机器与本机不同，不混作同一性能样本。
+
+该轮浏览器 28 通过、2 失败（Linux WebKit 表单禁用时的文字对比度、移动导航反向 Tab）；整体失败，容器未执行。已修正禁用 fieldset 不再降低整个区域的不透明度，移动菜单显式管理焦点顺序，并补测动态下拉、文字间距及头像文字对比度。后续成功运行需另行记录，不能把首轮说成通过。
 
 GitHub Actions 在 Ubuntu 24.04 执行真实 PostgreSQL/Redis、迁移往返、完整 pytest、Linux Celery 任务投递、十万条性能测试、三浏览器功能/无障碍矩阵，再启动生产 Compose 栈。失败即阻断任务，保留无秘密报告；不上传含 Cookie/令牌的浏览器 trace 或原始部署日志。
 
