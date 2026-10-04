@@ -2,11 +2,11 @@
 
 ## 当前验证边界
 
-Windows 已运行 PostgreSQL、API、Vue、pytest、Playwright、任务执行函数及独立恢复演练。此机器没有 Docker，WSL 未安装；没有 Git 远程和远程 CI 运行记录。下列容器、真实 Redis、Linux Celery 和 GitHub Actions 是可执行交付物，尚不能写成“已部署验收通过”。
+Windows 已运行 PostgreSQL、API、Vue、pytest、三引擎 Playwright、任务执行函数及独立恢复演练。本机仍没有 Docker/WSL；已接入 `Wissky-cmd/flowdesk` 并在 GitHub Ubuntu 实测真实 Redis、Linux Celery、十万条数据和浏览器矩阵。最新运行链接、容器状态及人工辅助技术检查边界见 [运行验收报告](production-acceptance.md)，不要把 Windows 函数调用当作真实队列运行。
 
 ## Linux / Docker Compose
 
-依赖锁：Windows 和 Linux x86_64 / CPython 3.14 各有独立 SHA256 锁文件。Linux 锁已通过真实 pip 平台解析，尚未在 Linux 安装运行。固定镜像标签，不使用 latest；生产建议在首次构建验收后再锁定镜像 digest。
+依赖锁：Windows 和 Linux x86_64 / CPython 3.14 各有独立 SHA256 锁文件。Linux 锁已在 Ubuntu 24.04 安装并通过测试。固定镜像标签，不使用 latest；生产建议在首次构建验收后再锁定镜像 digest。
 
 ```sh
 cp deploy/.env.example deploy/.env
@@ -35,7 +35,7 @@ docker compose --env-file deploy/.env start worker
 
 `scripts/queue_smoke.py` 要求 Linux 和显式隔离的 `*_test` 数据库。它在没有 Worker 时先投递，启动真正的 Celery Worker 后等待完成，再重复投递并断言单一产物和一次执行。Windows 直接运行会拒绝，避免把本机函数测试冒充 Linux Worker 证据。
 
-`.github/workflows/ci.yml` 使用 PostgreSQL/Redis 服务容器，执行迁移往返、后端测试、真实 Redis 原子计数与窗口恢复、Linux Worker 烟测、前端类型/构建/浏览器、Compose 配置/镜像构建。上传测试报告和截图；未配置自动部署。推送到用户选择的 GitHub 仓库后才会得到实际 CI 结果，目前没有远程运行记录。
+`.github/workflows/ci.yml` 使用 PostgreSQL/Redis 服务容器，执行迁移往返、后端测试、真实 Redis 原子计数与窗口恢复、Linux Worker 烟测、十万条性能、前端类型/构建、Chromium/Firefox/WebKit 功能及 WCAG 检查，再通过 `scripts/compose_acceptance.py` 实际启动并验收随机命名的隔离 Compose 栈。后者覆盖 Redis 停机/重启、Worker 缺席、持久化文件和服务重启；结束后仅清理自建容器和卷。上传不含秘密的报告，不上传浏览器 trace/原始部署日志。没有自动发布生产环境。
 
 本地 `./scripts/verify.ps1` 检查依赖、迁移、后端、类型、构建、浏览器。没有 TEST_REDIS_URL 时明确跳过真实 Redis 测试，不使用假 Redis 宣称通过。业务集成测试始终使用真正 PostgreSQL。
 

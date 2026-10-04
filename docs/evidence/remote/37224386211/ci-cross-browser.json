@@ -1,0 +1,1453 @@
+{
+  "config": {
+    "argv": [
+      "/opt/hostedtoolcache/node/24.19.0/x64/bin/node",
+      "/home/runner/work/flowdesk/flowdesk/frontend/node_modules/@playwright/test/cli.js",
+      "test"
+    ],
+    "configFile": "/home/runner/work/flowdesk/flowdesk/frontend/playwright.config.ts",
+    "rootDir": "/home/runner/work/flowdesk/flowdesk/frontend/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "ci": {
+        "commitHref": "https://github.com/Wissky-cmd/flowdesk/commit/b2f42aae3d1923e8e1d6d5c1a2bdebfb2ec43662",
+        "commitHash": "b2f42aae3d1923e8e1d6d5c1a2bdebfb2ec43662",
+        "buildHref": "https://github.com/Wissky-cmd/flowdesk/actions/runs/37224386211"
+      },
+      "gitCommit": {
+        "shortHash": "b2f42aa",
+        "hash": "b2f42aae3d1923e8e1d6d5c1a2bdebfb2ec43662",
+        "subject": "Wait for dialog teardown before testing mobile keyboard focus",
+        "body": "Wait for dialog teardown before testing mobile keyboard focus\n",
+        "author": {
+          "name": "Codex",
+          "email": "codex@local.invalid",
+          "time": 1791138324000
+        },
+        "committer": {
+          "name": "Codex",
+          "email": "codex@local.invalid",
+          "time": 1791138324000
+        },
+        "branch": "codex/production-acceptance"
+      },
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/home/runner/work/flowdesk/flowdesk/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "ci": {
+            "commitHref": "https://github.com/Wissky-cmd/flowdesk/commit/b2f42aae3d1923e8e1d6d5c1a2bdebfb2ec43662",
+            "commitHash": "b2f42aae3d1923e8e1d6d5c1a2bdebfb2ec43662",
+            "buildHref": "https://github.com/Wissky-cmd/flowdesk/actions/runs/37224386211"
+          },
+          "gitCommit": {
+            "shortHash": "b2f42aa",
+            "hash": "b2f42aae3d1923e8e1d6d5c1a2bdebfb2ec43662",
+            "subject": "Wait for dialog teardown before testing mobile keyboard focus",
+            "body": "Wait for dialog teardown before testing mobile keyboard focus\n",
+            "author": {
+              "name": "Codex",
+              "email": "codex@local.invalid",
+              "time": 1791138324000
+            },
+            "committer": {
+              "name": "Codex",
+              "email": "codex@local.invalid",
+              "time": 1791138324000
+            },
+            "branch": "codex/production-acceptance"
+          },
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/home/runner/work/flowdesk/flowdesk/frontend/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/runner/work/flowdesk/flowdesk/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "ci": {
+            "commitHref": "https://github.com/Wissky-cmd/flowdesk/commit/b2f42aae3d1923e8e1d6d5c1a2bdebfb2ec43662",
+            "commitHash": "b2f42aae3d1923e8e1d6d5c1a2bdebfb2ec43662",
+            "buildHref": "https://github.com/Wissky-cmd/flowdesk/actions/runs/37224386211"
+          },
+          "gitCommit": {
+            "shortHash": "b2f42aa",
+            "hash": "b2f42aae3d1923e8e1d6d5c1a2bdebfb2ec43662",
+            "subject": "Wait for dialog teardown before testing mobile keyboard focus",
+            "body": "Wait for dialog teardown before testing mobile keyboard focus\n",
+            "author": {
+              "name": "Codex",
+              "email": "codex@local.invalid",
+              "time": 1791138324000
+            },
+            "committer": {
+              "name": "Codex",
+              "email": "codex@local.invalid",
+              "time": 1791138324000
+            },
+            "branch": "codex/production-acceptance"
+          },
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "/home/runner/work/flowdesk/flowdesk/frontend/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/runner/work/flowdesk/flowdesk/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "ci": {
+            "commitHref": "https://github.com/Wissky-cmd/flowdesk/commit/b2f42aae3d1923e8e1d6d5c1a2bdebfb2ec43662",
+            "commitHash": "b2f42aae3d1923e8e1d6d5c1a2bdebfb2ec43662",
+            "buildHref": "https://github.com/Wissky-cmd/flowdesk/actions/runs/37224386211"
+          },
+          "gitCommit": {
+            "shortHash": "b2f42aa",
+            "hash": "b2f42aae3d1923e8e1d6d5c1a2bdebfb2ec43662",
+            "subject": "Wait for dialog teardown before testing mobile keyboard focus",
+            "body": "Wait for dialog teardown before testing mobile keyboard focus\n",
+            "author": {
+              "name": "Codex",
+              "email": "codex@local.invalid",
+              "time": 1791138324000
+            },
+            "committer": {
+              "name": "Codex",
+              "email": "codex@local.invalid",
+              "time": 1791138324000
+            },
+            "branch": "codex/production-acceptance"
+          },
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/home/runner/work/flowdesk/flowdesk/frontend/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../docs/evidence/ci-cross-browser.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "accessibility.spec.ts",
+      "file": "accessibility.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "WCAG audit of every view and interactive form states",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 13951,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:28:36.690Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ddd864604af8a6a0198f-1aebe45c7fd55c43e5a4",
+          "file": "accessibility.spec.ts",
+          "line": 26,
+          "column": 1
+        },
+        {
+          "title": "keyboard navigation, focus return, reduced motion and 320px reflow",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1646,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:28:51.108Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ddd864604af8a6a0198f-07711aae6c5ead57ae18",
+          "file": "accessibility.spec.ts",
+          "line": 71,
+          "column": 1
+        },
+        {
+          "title": "text spacing overrides and narrow reflow retain every view",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3020,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:28:52.764Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ddd864604af8a6a0198f-b20bd8c0289f72b22b4b",
+          "file": "accessibility.spec.ts",
+          "line": 115,
+          "column": 1
+        },
+        {
+          "title": "token, retry error and task history dialogs remain accessible",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4110,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:28:55.796Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ddd864604af8a6a0198f-dab45e7db95405aaced8",
+          "file": "accessibility.spec.ts",
+          "line": 128,
+          "column": 1
+        },
+        {
+          "title": "WCAG audit of every view and interactive form states",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 20368,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:29:35.573Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ddd864604af8a6a0198f-8e3c9a19551fd20b0183",
+          "file": "accessibility.spec.ts",
+          "line": 26,
+          "column": 1
+        },
+        {
+          "title": "keyboard navigation, focus return, reduced motion and 320px reflow",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2196,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:29:56.582Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ddd864604af8a6a0198f-2e899789dbb33b491830",
+          "file": "accessibility.spec.ts",
+          "line": 71,
+          "column": 1
+        },
+        {
+          "title": "text spacing overrides and narrow reflow retain every view",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3891,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:29:58.791Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ddd864604af8a6a0198f-8db2a0ab518344285d06",
+          "file": "accessibility.spec.ts",
+          "line": 115,
+          "column": 1
+        },
+        {
+          "title": "token, retry error and task history dialogs remain accessible",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5400,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:30:02.694Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ddd864604af8a6a0198f-5ea82315b5c4a55dd491",
+          "file": "accessibility.spec.ts",
+          "line": 128,
+          "column": 1
+        },
+        {
+          "title": "WCAG audit of every view and interactive form states",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 21792,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:30:49.679Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ddd864604af8a6a0198f-e9a45a731e2f5dcdee16",
+          "file": "accessibility.spec.ts",
+          "line": 26,
+          "column": 1
+        },
+        {
+          "title": "keyboard navigation, focus return, reduced motion and 320px reflow",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3999,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:31:12.024Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ddd864604af8a6a0198f-d1ecb06b3f2bb44227a3",
+          "file": "accessibility.spec.ts",
+          "line": 71,
+          "column": 1
+        },
+        {
+          "title": "text spacing overrides and narrow reflow retain every view",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3909,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:31:16.036Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ddd864604af8a6a0198f-cd3acdccb694b34227ca",
+          "file": "accessibility.spec.ts",
+          "line": 115,
+          "column": 1
+        },
+        {
+          "title": "token, retry error and task history dialogs remain accessible",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4807,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:31:19.958Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ddd864604af8a6a0198f-64014d1df9e5d37b0cf7",
+          "file": "accessibility.spec.ts",
+          "line": 128,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "operations.spec.ts",
+      "file": "operations.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "task center executes real database export and exposes downloadable result",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3650,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:28:59.933Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4f8fd72df7d8ab107a64-06d04ce1ef7719151671",
+          "file": "operations.spec.ts",
+          "line": 16,
+          "column": 1
+        },
+        {
+          "title": "token shown once, scope limited, revoked; mobile settings layout",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3619,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:29:03.596Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4f8fd72df7d8ab107a64-3068dcabc6655de80879",
+          "file": "operations.spec.ts",
+          "line": 45,
+          "column": 1
+        },
+        {
+          "title": "late refresh cannot overwrite the newly selected jobs page",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1852,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:29:07.227Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4f8fd72df7d8ab107a64-ca48d793aba1b884a554",
+          "file": "operations.spec.ts",
+          "line": 75,
+          "column": 1
+        },
+        {
+          "title": "retry rejection is visible inside the dialog and preserves the reason",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2580,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:29:09.093Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4f8fd72df7d8ab107a64-1c736cf4b6ca5ced6833",
+          "file": "operations.spec.ts",
+          "line": 100,
+          "column": 1
+        },
+        {
+          "title": "task center executes real database export and exposes downloadable result",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3612,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:30:08.121Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4f8fd72df7d8ab107a64-257a9673d3dcebe21c50",
+          "file": "operations.spec.ts",
+          "line": 16,
+          "column": 1
+        },
+        {
+          "title": "token shown once, scope limited, revoked; mobile settings layout",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3756,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:30:11.743Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4f8fd72df7d8ab107a64-ffa9fa310019267cdfaf",
+          "file": "operations.spec.ts",
+          "line": 45,
+          "column": 1
+        },
+        {
+          "title": "late refresh cannot overwrite the newly selected jobs page",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2499,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:30:15.511Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4f8fd72df7d8ab107a64-f21037cbc800c092a428",
+          "file": "operations.spec.ts",
+          "line": 75,
+          "column": 1
+        },
+        {
+          "title": "retry rejection is visible inside the dialog and preserves the reason",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3031,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:30:18.022Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4f8fd72df7d8ab107a64-c5d871cff2852af73191",
+          "file": "operations.spec.ts",
+          "line": 100,
+          "column": 1
+        },
+        {
+          "title": "task center executes real database export and exposes downloadable result",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4851,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:31:24.792Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4f8fd72df7d8ab107a64-83b95c97662ee401fcaa",
+          "file": "operations.spec.ts",
+          "line": 16,
+          "column": 1
+        },
+        {
+          "title": "token shown once, scope limited, revoked; mobile settings layout",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4006,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:31:29.653Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4f8fd72df7d8ab107a64-38cfa7d69f6461f27708",
+          "file": "operations.spec.ts",
+          "line": 45,
+          "column": 1
+        },
+        {
+          "title": "late refresh cannot overwrite the newly selected jobs page",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2169,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:31:33.671Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4f8fd72df7d8ab107a64-71b97e3f9223972bf9d4",
+          "file": "operations.spec.ts",
+          "line": 75,
+          "column": 1
+        },
+        {
+          "title": "retry rejection is visible inside the dialog and preserves the reason",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3117,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:31:35.855Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4f8fd72df7d8ab107a64-fa77df85fec7648800b8",
+          "file": "operations.spec.ts",
+          "line": 100,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "tickets.spec.ts",
+      "file": "tickets.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "browser login, create, list, refresh, and separate workspace isolation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5453,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:29:11.692Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d0af0b82280f1821db49-8a82891fbe7f57e2184b",
+          "file": "tickets.spec.ts",
+          "line": 13,
+          "column": 1
+        },
+        {
+          "title": "login errors and mobile layout",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 758,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:29:17.157Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d0af0b82280f1821db49-f2ab149f0d78e307479b",
+          "file": "tickets.spec.ts",
+          "line": 45,
+          "column": 1
+        },
+        {
+          "title": "browser login, create, list, refresh, and separate workspace isolation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6850,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:30:21.071Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d0af0b82280f1821db49-369bf50bcbc7bb8ee59a",
+          "file": "tickets.spec.ts",
+          "line": 13,
+          "column": 1
+        },
+        {
+          "title": "login errors and mobile layout",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 959,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:30:27.932Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d0af0b82280f1821db49-2e96254a42ae4607821e",
+          "file": "tickets.spec.ts",
+          "line": 45,
+          "column": 1
+        },
+        {
+          "title": "browser login, create, list, refresh, and separate workspace isolation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7215,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:31:38.992Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d0af0b82280f1821db49-bc2ee8f37a0f97ecd9e6",
+          "file": "tickets.spec.ts",
+          "line": 13,
+          "column": 1
+        },
+        {
+          "title": "login errors and mobile layout",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1000,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:31:46.219Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d0af0b82280f1821db49-283c5c7b19f4a08859de",
+          "file": "tickets.spec.ts",
+          "line": 45,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "workflow.spec.ts",
+      "file": "workflow.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "requester creates, agent assigns and processes, owner accepts; comments, attachment, filters and board",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 13262,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:29:17.934Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-062adb1be1beb3da0b2a",
+          "file": "workflow.spec.ts",
+          "line": 21,
+          "column": 1
+        },
+        {
+          "title": "conflicting editors preserve the losing draft until latest version is loaded",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3782,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:29:31.209Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-1a0fbd696b0da98b7c93",
+          "file": "workflow.spec.ts",
+          "line": 84,
+          "column": 1
+        },
+        {
+          "title": "requester creates, agent assigns and processes, owner accepts; comments, attachment, filters and board",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 15676,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:30:28.915Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-8f8fd916ec1c22a5bf81",
+          "file": "workflow.spec.ts",
+          "line": 21,
+          "column": 1
+        },
+        {
+          "title": "conflicting editors preserve the losing draft until latest version is loaded",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4180,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:30:44.610Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-e81704e8669078e525b3",
+          "file": "workflow.spec.ts",
+          "line": 84,
+          "column": 1
+        },
+        {
+          "title": "requester creates, agent assigns and processes, owner accepts; comments, attachment, filters and board",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 14334,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:31:47.241Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-d63d92e16589e2e6f000",
+          "file": "workflow.spec.ts",
+          "line": 21,
+          "column": 1
+        },
+        {
+          "title": "conflicting editors preserve the losing draft until latest version is loaded",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4546,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T18:32:01.588Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-c4dc1e54857cd2e85684",
+          "file": "workflow.spec.ts",
+          "line": 84,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-04T18:28:36.013Z",
+    "duration": 210267.432,
+    "expected": 36,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

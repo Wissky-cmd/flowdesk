@@ -1,0 +1,116 @@
+{
+  "url": "/w/f441fe89-3299-51c1-ab7b-1a23105e255f/members",
+  "engine": {
+    "name": "axe-core",
+    "version": "4.13.0"
+  },
+  "browser": "26.6",
+  "violations": [],
+  "incomplete": [
+    {
+      "id": "aria-valid-attr-value",
+      "impact": "critical",
+      "help": "ARIA attributes must conform to valid values",
+      "targets": [
+        [
+          "#member-role"
+        ]
+      ]
+    },
+    {
+      "id": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "targets": [
+        [
+          "a[aria-label=\"FlowDesk 首页\"] > .brand-mark"
+        ],
+        [
+          ".member-columns > span:nth-child(1)"
+        ],
+        [
+          ".member-columns > span:nth-child(2)"
+        ],
+        [
+          ".member-columns > span:nth-child(3)"
+        ],
+        [
+          ".member-entry:nth-child(2) > .member-person > .member-avatar"
+        ],
+        [
+          ".member-entry:nth-child(2) > .member-person > div > strong"
+        ],
+        [
+          ".member-entry:nth-child(2) > .member-person > div > .member-email"
+        ],
+        [
+          ".member-entry:nth-child(2) > .member-role"
+        ],
+        [
+          ".member-entry:nth-child(2) > .member-state"
+        ],
+        [
+          "button[aria-label=\"编辑周提交人\"]"
+        ],
+        [
+          ".member-entry:nth-child(3) > .member-person > .member-avatar"
+        ],
+        [
+          ".member-entry:nth-child(3) > .member-person > div > strong"
+        ],
+        [
+          ".self-label"
+        ],
+        [
+          ".member-entry:nth-child(3) > .member-person > div > .member-email"
+        ],
+        [
+          ".member-entry:nth-child(3) > .member-role"
+        ],
+        [
+          ".member-entry:nth-child(3) > .member-state"
+        ],
+        [
+          "button[aria-label=\"编辑林管理员\"]"
+        ],
+        [
+          ".member-entry:nth-child(4) > .member-person > .member-avatar"
+        ],
+        [
+          ".member-entry:nth-child(4) > .member-person > div > strong"
+        ],
+        [
+          ".member-entry:nth-child(4) > .member-person > div > .member-email"
+        ],
+        [
+          ".member-entry:nth-child(4) > .member-role"
+        ],
+        [
+          ".member-entry:nth-child(4) > .member-state"
+        ],
+        [
+          "button[aria-label=\"编辑许提交人\"]"
+        ],
+        [
+          ".member-entry:nth-child(5) > .member-person > .member-avatar"
+        ],
+        [
+          ".member-entry:nth-child(5) > .member-person > div > strong"
+        ],
+        [
+          ".member-entry:nth-child(5) > .member-person > div > .member-email"
+        ],
+        [
+          ".member-entry:nth-child(5) > .member-role"
+        ],
+        [
+          ".member-entry:nth-child(5) > .member-state"
+        ],
+        [
+          "button[aria-label=\"编辑陈处理员\"]"
+        ]
+      ]
+    }
+  ],
+  "passedRules": 39
+}

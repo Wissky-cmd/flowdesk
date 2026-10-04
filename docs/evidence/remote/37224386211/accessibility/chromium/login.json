@@ -1,0 +1,22 @@
+{
+  "url": "/login",
+  "engine": {
+    "name": "axe-core",
+    "version": "4.13.0"
+  },
+  "browser": "153.0.8010.12",
+  "violations": [],
+  "incomplete": [
+    {
+      "id": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "targets": [
+        [
+          ".brand-mark"
+        ]
+      ]
+    }
+  ],
+  "passedRules": 30
+}

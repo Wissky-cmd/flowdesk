@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-10-04T18:32:06.437532+00:00",
+  "project": "flowdesk-acceptance-9b72c824cd",
+  "checks": [
+    "Nginx SPA fallback and security headers",
+    "PostgreSQL migration, authenticated create and attachment upload",
+    "Real dispatcher/Redis/Celery, absent consumer and Redis restart recovery, shared CSV download",
+    "Service restart preserves session, ticket, binary attachment and CSV",
+    "Real Redis outage fails login closed while existing sessions still work",
+    "Real Redis HTTP 429 with Retry-After"
+  ],
+  "passed": true,
+  "job": {
+    "attempts": 1,
+    "delivery_attempts": 1
+  }
+}

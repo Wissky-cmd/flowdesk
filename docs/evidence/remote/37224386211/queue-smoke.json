@@ -1,0 +1,12 @@
+{
+  "platform": "linux",
+  "passed": true,
+  "transport": "redis",
+  "worker": "celery prefork",
+  "checks": [
+    "absent_worker_recovery",
+    "duplicate_delivery",
+    "single_artifact"
+  ],
+  "execution_attempts": 1
+}

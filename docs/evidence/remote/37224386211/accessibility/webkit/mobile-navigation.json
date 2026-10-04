@@ -1,0 +1,32 @@
+{
+  "url": "/w/f441fe89-3299-51c1-ab7b-1a23105e255f/tickets/b8d0fe8d-64a1-4771-b568-bd814319808e",
+  "engine": {
+    "name": "axe-core",
+    "version": "4.13.0"
+  },
+  "browser": "26.6",
+  "violations": [],
+  "incomplete": [
+    {
+      "id": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "targets": [
+        [
+          ".mobile-bar > .brand[href=\"/\"] > .brand-mark"
+        ]
+      ]
+    },
+    {
+      "id": "skip-link",
+      "impact": "moderate",
+      "help": "The skip-link target should exist and be focusable",
+      "targets": [
+        [
+          ".skip-link"
+        ]
+      ]
+    }
+  ],
+  "passedRules": 29
+}

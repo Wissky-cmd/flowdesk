@@ -1,0 +1,22 @@
+{
+  "url": "/w/f441fe89-3299-51c1-ab7b-1a23105e255f/jobs",
+  "engine": {
+    "name": "axe-core",
+    "version": "4.13.0"
+  },
+  "browser": "153.0.8010.12",
+  "violations": [],
+  "incomplete": [
+    {
+      "id": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "targets": [
+        [
+          "a[aria-label=\"FlowDesk 首页\"] > .brand-mark"
+        ]
+      ]
+    }
+  ],
+  "passedRules": 42
+}

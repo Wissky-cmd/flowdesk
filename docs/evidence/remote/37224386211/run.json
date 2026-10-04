@@ -1,0 +1,141 @@
+{
+  "id": 37224386211,
+  "sha": "b2f42aae3d1923e8e1d6d5c1a2bdebfb2ec43662",
+  "url": "https://github.com/Wissky-cmd/flowdesk/actions/runs/37224386211",
+  "status": "completed",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "id": 111500905688,
+      "status": "completed",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Initialize containers",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run pip install --require-hashes -r backend/requirements-linux.lock",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run pip check",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Create isolated test database",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python scripts/check_database.py",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python -m pytest backend/tests -q -p no:cacheprovider --junitxml=docs/evidence/ci-pytest.xml",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python scripts/queue_smoke.py",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Large dataset acceptance",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run npm install --global pnpm@11.25.0",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run pnpm install --frozen-lockfile",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run pnpm exec vue-tsc --noEmit && pnpm build",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run pnpm exec playwright install --with-deps chromium firefox webkit",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Start development services for browser acceptance",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run pnpm exec playwright test",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Boot disposable production stack and verify recovery",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Stop containers",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ]
+}

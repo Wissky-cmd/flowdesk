@@ -1,0 +1,28 @@
+{
+  "url": "/",
+  "engine": {
+    "name": "axe-core",
+    "version": "4.13.0"
+  },
+  "browser": "26.6",
+  "violations": [],
+  "incomplete": [
+    {
+      "id": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "targets": [
+        [
+          "a[aria-label=\"FlowDesk 首页\"] > .brand-mark"
+        ],
+        [
+          ".greeting-dot"
+        ],
+        [
+          ".info-strip > span"
+        ]
+      ]
+    }
+  ],
+  "passedRules": 34
+}

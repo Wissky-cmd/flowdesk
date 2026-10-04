@@ -1,12 +1,12 @@
 # FlowDesk 团队工单与服务管理平台
 
-面向学习与作品展示的模块化单体。已实现登录、空间权限、工单全流程、筛选、评论附件、看板、任务中心、有限重试与集成授权。交付 Compose/Nginx/CI 和备份恢复脚本。实际验证边界见 [验收记录](docs/acceptance.md)：Windows 本机功能通过，真实 Redis、Linux Worker、容器部署与远程 CI 尚待运行环境验收。
+面向学习与作品展示的模块化单体。已实现登录、空间权限、工单全流程、筛选、评论附件、看板、任务中心、有限重试与集成授权。[远程 CI 全部通过](https://github.com/Wissky-cmd/flowdesk/actions/runs/37224386211)：真实 Redis/Linux Celery、70 项后端测试、36 项三引擎浏览器测试、十万条性能和实际 Compose/Nginx 故障恢复。完整证据及人工辅助技术验收边界见 [运行验收报告](docs/production-acceptance.md)。
 
 ## 当前环境
 
 已实测 Windows、Python **3.14.7**、Node **24.19.0**、pnpm **11.25.0**、PostgreSQL **18.6**。后端完整版本见 `backend/requirements.lock`；Windows 3.14 二进制包 SHA256 见 `backend/requirements-win.lock`；前端完整版本由 `frontend/pnpm-lock.yaml` 锁定。
 
-Psycopg 在 Windows 上需要 Selector 事件循环，入口 `backend/run.py` 与迁移、种子入口统一使用 `app/runtime.py`。未修改全局 Python。Celery 5.6.3 / Kombu 5.6.2 的 Redis 扩展要求 redis<6.5，客户端锁为 6.4.0。Linux x86_64 哈希锁文件已完成平台解析，Linux 实际运行尚未验收。
+Psycopg 在 Windows 上需要 Selector 事件循环，入口 `backend/run.py` 与迁移、种子入口统一使用 `app/runtime.py`。未修改全局 Python。Celery 5.6.3 / Kombu 5.6.2 的 Redis 扩展要求 redis<6.5，客户端锁为 6.4.0。Linux x86_64 哈希锁已在 GitHub Ubuntu 24.04 安装并通过 `pip check` 和实际运行验证。
 
 ## 本机直接使用
 

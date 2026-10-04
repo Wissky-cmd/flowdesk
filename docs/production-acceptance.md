@@ -1,5 +1,22 @@
 # 运行环境、性能与无障碍验收
 
+## 最终结果（2026-10-05）
+
+[GitHub Actions 37224386211](https://github.com/Wissky-cmd/flowdesk/actions/runs/37224386211) **整轮成功**，验证提交 `b2f42aae3d1923e8e1d6d5c1a2bdebfb2ec43662`。后续提交仅归档文档/证据，不改变验收代码。原始 [运行状态](evidence/remote/37224386211/run.json) 与同目录报告可复查。
+
+| 验收项 | 同一次远程运行的结果 |
+| --- | --- |
+| Ubuntu 24.04 / Python 3.14.7 / PostgreSQL 18.6 | 哈希锁安装、pip check、迁移往返与种子幂等通过；pytest **70 通过，0 跳过/失败** |
+| 真实 Redis / Linux Celery prefork | 真实 Lua 并发计数、窗口恢复、HTTP429；Worker 缺席后的消费恢复、重复投递只执行一次通过 |
+| Chromium / Firefox / WebKit | **36 项全部通过，0 跳过/不稳定项**；包括完整工单流程、权限、冲突、附件、CSV、令牌、无障碍与键盘 |
+| WCAG 自动扫描 | 三引擎共 **51 份页面/状态报告，0 违规**；保留 incomplete 与人工辅助技术边界 |
+| 100,003 条工单 / 8 并发 | 六种查询 P95 **154–896 ms**，全部低于 1,000 ms；深分页 270.49 ms；8,001 条 CSV 构建与下载 185.74 ms |
+| 完整生产构建与容器运行 | Nginx、PostgreSQL、Redis、API、Celery、dispatcher 实际启动；6 类功能、故障恢复及数据保留检查全部通过；测试栈结束后清理 |
+
+远程性能原始 P95：首页 299.39 ms、深分页 270.49 ms、搜索 895.69 ms、状态筛选 171.22 ms、负责人筛选 154.19 ms、汇总 461.16 ms。构建日志与报告来自该 GitHub 运行器；不代表公网延迟、任意数据分布或长期容量保证。
+
+证据：[后端](evidence/remote/37224386211/ci-pytest.xml)、[浏览器](evidence/remote/37224386211/ci-cross-browser.json)、[性能](evidence/remote/37224386211/performance.json)、[真实队列](evidence/remote/37224386211/queue-smoke.json)、[容器](evidence/remote/37224386211/compose-acceptance.json)。实际公网生产部署、TLS、NVDA/VoiceOver 和真实 Apple 设备未在此轮执行；以下明确标注的历史失败已由最终成功运行覆盖。
+
 ## 本机证据（2026-10-05）
 
 - PostgreSQL 回归：69 通过，真实 Redis 1 项在 Windows 未配置而跳过。`evidence/pytest-hardening.xml`。
@@ -61,4 +78,6 @@ CROSS_BROWSER=1 pnpm exec playwright test
 
 生产公网域名、TLS 证书、真实组织数据、备份保留策略与长期压测不在一次性验收栈中配置。
 
-第二轮 [Actions 37223093552](https://github.com/Wissky-cmd/flowdesk/actions/runs/37223093552) 的后端、真实队列、性能及 33 项跨浏览器测试全部通过；容器构建发现 Dockerfile 漏拷贝 pnpm-workspace.yaml，esbuild 构建许可未生效。已补齐许可配置，等待新一轮容器实测。
+第二轮 [Actions 37223093552](https://github.com/Wissky-cmd/flowdesk/actions/runs/37223093552) 的后端、真实队列、性能及 33 项跨浏览器测试全部通过；容器构建发现 Dockerfile 漏拷贝 pnpm-workspace.yaml，esbuild 构建许可未生效。已补齐许可配置，后续实际构建通过。
+
+第三轮 [Actions 37223659156](https://github.com/Wissky-cmd/flowdesk/actions/runs/37223659156) **完整容器验收通过**，包含 6 类检查，真实导出投递/执行各 1 次；原始 [容器报告](evidence/remote/37223659156/compose-acceptance.json)、[队列报告](evidence/remote/37223659156/queue-smoke.json) 已下载核对。本轮后端与性能通过，浏览器为 35 通过 / 1 失败，失败仍为 Linux WebKit 移动导航键盘断言。测试补上弹窗完全关闭、导航可见及初始焦点确认，并记录不含用户输入的焦点类别用于定位，不降低断言标准。随后最终整轮通过，见本报告开头。
